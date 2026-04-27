@@ -1,0 +1,957 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RUBRIC — Agencia de Publicidad Colaborativa</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --black: #0a0a0a;
+        --white: #f5f0e8;
+        --cream: #ede8de;
+        --red: #c8341a;
+        --red-dark: #9e2612;
+        --gray: #888780;
+        --gray-light: #d3d1c7;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: "DM Sans", sans-serif;
+        background: var(--black);
+        color: var(--white);
+        overflow-x: hidden;
+      }
+
+      /* NAV */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.5rem 4rem;
+        mix-blend-mode: difference;
+      }
+      .nav-logo {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 2rem;
+        letter-spacing: 0.1em;
+        color: var(--white);
+        text-decoration: none;
+      }
+      .nav-links {
+        display: flex;
+        gap: 2.5rem;
+        list-style: none;
+      }
+      .nav-links a {
+        font-size: 0.8rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--white);
+        text-decoration: none;
+        opacity: 0.7;
+        transition: opacity 0.2s;
+      }
+      .nav-links a:hover {
+        opacity: 1;
+      }
+
+      /* HERO */
+      #inicio {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 8rem 4rem 5rem;
+        position: relative;
+        overflow: hidden;
+      }
+      .hero-bg-text {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(14rem, 28vw, 30rem);
+        color: transparent;
+        -webkit-text-stroke: 1px rgba(245, 240, 232, 0.06);
+        white-space: nowrap;
+        pointer-events: none;
+        user-select: none;
+        letter-spacing: -0.02em;
+      }
+      .hero-tag {
+        font-size: 0.75rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--red);
+        margin-bottom: 1.5rem;
+        font-weight: 500;
+      }
+      .hero-title {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(5rem, 14vw, 14rem);
+        line-height: 0.9;
+        letter-spacing: -0.01em;
+        margin-bottom: 2.5rem;
+      }
+      .hero-title span {
+        color: var(--red);
+      }
+      .hero-bottom {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        gap: 2rem;
+      }
+      .hero-tagline {
+        font-size: clamp(1rem, 1.8vw, 1.4rem);
+        font-weight: 300;
+        font-style: italic;
+        max-width: 600px;
+        line-height: 1.6;
+        color: rgba(245, 240, 232, 0.7);
+      }
+      .hero-cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+        background: var(--red);
+        color: var(--white);
+        padding: 1rem 2rem;
+        text-decoration: none;
+        font-size: 0.85rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        font-weight: 500;
+        transition: background 0.2s;
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+      .hero-cta:hover {
+        background: var(--red-dark);
+      }
+      .hero-line {
+        position: absolute;
+        top: 0;
+        left: 4rem;
+        width: 1px;
+        height: 100vh;
+        background: rgba(245, 240, 232, 0.08);
+      }
+
+      /* QUIÉNES SOMOS */
+      #nosotros {
+        background: var(--cream);
+        color: var(--black);
+        padding: 8rem 4rem;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 6rem;
+        align-items: center;
+      }
+      .section-label {
+        font-size: 0.72rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        margin-bottom: 1.5rem;
+        opacity: 0.5;
+        font-weight: 500;
+      }
+      .about-heading {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(3rem, 6vw, 6rem);
+        line-height: 1;
+        margin-bottom: 2rem;
+        letter-spacing: 0.01em;
+      }
+      .about-heading em {
+        color: var(--red);
+        font-style: normal;
+      }
+      .about-text {
+        font-size: 1.1rem;
+        line-height: 1.8;
+        font-weight: 300;
+        color: rgba(10, 10, 10, 0.75);
+        margin-bottom: 2rem;
+      }
+      .about-right {
+        display: flex;
+        flex-direction: column;
+        gap: 2.5rem;
+      }
+      .about-stat {
+        border-top: 1px solid rgba(10, 10, 10, 0.12);
+        padding-top: 1.5rem;
+      }
+      .about-stat-num {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 4rem;
+        color: var(--red);
+        line-height: 1;
+        margin-bottom: 0.25rem;
+      }
+      .about-stat-label {
+        font-size: 0.85rem;
+        font-weight: 300;
+        opacity: 0.6;
+        letter-spacing: 0.05em;
+      }
+
+      /* SERVICIOS */
+      #servicios {
+        background: var(--black);
+        padding: 8rem 4rem;
+      }
+      .services-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin-bottom: 5rem;
+        gap: 2rem;
+      }
+      .services-heading {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(3rem, 7vw, 7rem);
+        line-height: 1;
+      }
+      .services-intro {
+        max-width: 380px;
+        font-size: 0.95rem;
+        font-weight: 300;
+        line-height: 1.7;
+        color: rgba(245, 240, 232, 0.5);
+        text-align: right;
+      }
+      .services-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0;
+        border-top: 1px solid rgba(245, 240, 232, 0.1);
+      }
+      .service-item {
+        padding: 3rem 2.5rem;
+        border-right: 1px solid rgba(245, 240, 232, 0.1);
+        border-bottom: 1px solid rgba(245, 240, 232, 0.1);
+        position: relative;
+        overflow: hidden;
+        transition: background 0.3s;
+        cursor: default;
+      }
+      .service-item:nth-child(3n) {
+        border-right: none;
+      }
+      .service-item:hover {
+        background: rgba(200, 52, 26, 0.07);
+      }
+      .service-num {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 0.9rem;
+        color: var(--red);
+        letter-spacing: 0.1em;
+        margin-bottom: 1.5rem;
+      }
+      .service-name {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 2.5rem;
+        line-height: 1;
+        margin-bottom: 1rem;
+      }
+      .service-desc {
+        font-size: 0.85rem;
+        font-weight: 300;
+        line-height: 1.7;
+        color: rgba(245, 240, 232, 0.45);
+      }
+      .service-arrow {
+        position: absolute;
+        bottom: 2rem;
+        right: 2rem;
+        font-size: 1.5rem;
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+      .service-item:hover .service-arrow {
+        opacity: 0.3;
+      }
+
+      /* CLIENTES / CASOS */
+      #clientes {
+        background: var(--white);
+        color: var(--black);
+        padding: 8rem 4rem;
+      }
+      .cases-header {
+        margin-bottom: 4rem;
+      }
+      .cases-heading {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(3rem, 7vw, 7rem);
+        line-height: 1;
+        margin-bottom: 1rem;
+      }
+      .cases-sub {
+        font-size: 0.95rem;
+        font-weight: 300;
+        color: rgba(10, 10, 10, 0.5);
+        max-width: 500px;
+        line-height: 1.7;
+      }
+      .cases-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2px;
+      }
+      .case-card {
+        background: var(--black);
+        color: var(--white);
+        padding: 3.5rem 2.5rem;
+        position: relative;
+        overflow: hidden;
+        min-height: 280px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        transition: transform 0.3s ease;
+      }
+      .case-card:hover {
+        transform: scale(1.01);
+        z-index: 1;
+      }
+      .case-card.accent {
+        background: var(--red);
+      }
+      .case-card.light {
+        background: var(--cream);
+        color: var(--black);
+      }
+      .case-num {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 0.85rem;
+        opacity: 0.4;
+        letter-spacing: 0.1em;
+        margin-bottom: auto;
+      }
+      .case-name {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 3.5rem;
+        line-height: 1;
+        margin-bottom: 0.5rem;
+      }
+      .case-type {
+        font-size: 0.78rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        opacity: 0.5;
+        font-weight: 400;
+      }
+      .case-card.accent .case-type {
+        opacity: 0.8;
+      }
+      .case-bg-text {
+        position: absolute;
+        bottom: -1rem;
+        right: -1rem;
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 8rem;
+        opacity: 0.04;
+        line-height: 1;
+        pointer-events: none;
+        user-select: none;
+      }
+
+      /* CONTACTO */
+      #contacto {
+        background: var(--black);
+        padding: 8rem 4rem;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .contact-top {
+        margin-bottom: 6rem;
+      }
+      .contact-heading {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(4rem, 12vw, 13rem);
+        line-height: 0.9;
+        margin-bottom: 2rem;
+      }
+      .contact-heading span {
+        color: var(--red);
+      }
+      .contact-sub {
+        font-size: 1.1rem;
+        font-weight: 300;
+        color: rgba(245, 240, 232, 0.5);
+        font-style: italic;
+        max-width: 500px;
+        line-height: 1.7;
+      }
+      .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        align-items: end;
+      }
+      .contact-info {
+        display: flex;
+        flex-direction: column;
+        gap: 2.5rem;
+      }
+      .contact-item {
+      }
+      .contact-item-label {
+        font-size: 0.7rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--red);
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+      }
+      .contact-item-val {
+        font-size: 1.1rem;
+        font-weight: 300;
+        color: rgba(245, 240, 232, 0.8);
+      }
+      .contact-item-val a {
+        color: inherit;
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+      .contact-item-val a:hover {
+        color: var(--white);
+      }
+      .contact-form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+      .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+      }
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      .form-group label {
+        font-size: 0.72rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: rgba(245, 240, 232, 0.4);
+        font-weight: 500;
+      }
+      .form-group input,
+      .form-group textarea,
+      .form-group select {
+        background: rgba(245, 240, 232, 0.05);
+        border: 1px solid rgba(245, 240, 232, 0.12);
+        color: var(--white);
+        padding: 0.9rem 1rem;
+        font-family: "DM Sans", sans-serif;
+        font-size: 0.95rem;
+        font-weight: 300;
+        outline: none;
+        transition:
+          border-color 0.2s,
+          background 0.2s;
+        resize: none;
+      }
+      .form-group input:focus,
+      .form-group textarea:focus,
+      .form-group select:focus {
+        border-color: var(--red);
+        background: rgba(200, 52, 26, 0.05);
+      }
+      .form-group select option {
+        background: var(--black);
+      }
+      .form-submit {
+        background: var(--red);
+        color: var(--white);
+        border: none;
+        padding: 1.1rem 2.5rem;
+        font-family: "DM Sans", sans-serif;
+        font-size: 0.85rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background 0.2s;
+        align-self: flex-start;
+      }
+      .form-submit:hover {
+        background: var(--red-dark);
+      }
+
+      /* FOOTER */
+      footer {
+        background: var(--black);
+        border-top: 1px solid rgba(245, 240, 232, 0.08);
+        padding: 2rem 4rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .footer-logo {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 1.5rem;
+        letter-spacing: 0.1em;
+        color: var(--white);
+      }
+      .footer-copy {
+        font-size: 0.78rem;
+        color: rgba(245, 240, 232, 0.3);
+        letter-spacing: 0.05em;
+      }
+      .footer-social {
+        display: flex;
+        gap: 1.5rem;
+      }
+      .footer-social a {
+        font-size: 0.78rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: rgba(245, 240, 232, 0.4);
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+      .footer-social a:hover {
+        color: var(--red);
+      }
+
+      /* ANIMATIONS */
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .hero-tag,
+      .hero-title,
+      .hero-bottom {
+        animation: fadeUp 0.9s ease both;
+      }
+      .hero-title {
+        animation-delay: 0.15s;
+      }
+      .hero-bottom {
+        animation-delay: 0.3s;
+      }
+
+      /* CURSOR */
+      body {
+        cursor: crosshair;
+      }
+      a,
+      button {
+        cursor: crosshair;
+      }
+
+      @media (max-width: 900px) {
+        nav {
+          padding: 1.5rem 2rem;
+        }
+        #inicio {
+          padding: 7rem 2rem 4rem;
+        }
+        .hero-bottom {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        #nosotros {
+          grid-template-columns: 1fr;
+          gap: 3rem;
+          padding: 5rem 2rem;
+        }
+        #servicios {
+          padding: 5rem 2rem;
+        }
+        .services-grid {
+          grid-template-columns: 1fr;
+        }
+        .services-header {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        .services-intro {
+          text-align: left;
+        }
+        #clientes {
+          padding: 5rem 2rem;
+        }
+        .cases-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        #contacto {
+          padding: 5rem 2rem;
+        }
+        .contact-grid {
+          grid-template-columns: 1fr;
+        }
+        footer {
+          flex-direction: column;
+          gap: 1.5rem;
+          text-align: center;
+          padding: 2rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- HERO -->
+    <section id="inicio">
+      <div class="hero-line"></div>
+      <div class="hero-bg-text">RUBRIC</div>
+      <p class="hero-tag">
+        Agencia de publicidad colaborativa — Buenos Aires, Argentina
+      </p>
+      <h1 class="hero-title">RUBRIC<span>.</span></h1>
+      <div class="hero-bottom">
+        <p class="hero-tagline">
+          Todo lo que hace tu marca comunica.<br />Y si comunica, nos gusta
+          hacerlo.
+        </p>
+        <a class="hero-cta" href="#contacto">Hablemos →</a>
+      </div>
+    </section>
+
+    <!-- QUIÉNES SOMOS -->
+    <section id="nosotros">
+      <div class="about-left">
+        <p class="section-label">Quiénes somos</p>
+        <h2 class="about-heading">
+          Talento<br />al <em>servicio</em><br />de tu marca.
+        </h2>
+        <p class="about-text">
+          En Rubric reunimos al mejor talento publicitario para hacer fit con
+          los proyectos de nuestros clientes. Una agencia colaborativa con
+          talento senior especialmente convocado para cada proyecto.
+        </p>
+        <p class="about-text">
+          No creemos en estructuras rígidas. Creemos en equipos que se arman a
+          medida del desafío — creativos, estrategas y diseñadores que ya
+          demostraron lo suyo.
+        </p>
+      </div>
+      <div class="about-right">
+        <div class="about-stat">
+          <div class="about-stat-num">+15</div>
+          <div class="about-stat-label">Años de experiencia combinada</div>
+        </div>
+        <div class="about-stat">
+          <div class="about-stat-num">+30</div>
+          <div class="about-stat-label">Marcas acompañadas</div>
+        </div>
+        <div class="about-stat">
+          <div class="about-stat-num">100%</div>
+          <div class="about-stat-label">Talento senior para cada proyecto</div>
+        </div>
+        <div class="about-stat">
+          <div class="about-stat-num">01</div>
+          <div class="about-stat-label">
+            Propósito: ayudar a las marcas a encontrar su marca
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICIOS -->
+    <section id="servicios">
+      <div class="services-header">
+        <h2 class="services-heading">Lo que<br />hacemos.</h2>
+        <p class="services-intro">
+          Desde la estrategia hasta la ejecución. Trabajamos en cada dimensión
+          de tu marca con el talento justo para cada etapa.
+        </p>
+      </div>
+      <div class="services-grid">
+        <div class="service-item">
+          <div class="service-num">01</div>
+          <div class="service-name">Publicidad</div>
+          <p class="service-desc">
+            Campañas con ideas que traccionan. Creatividad al servicio de
+            objetivos reales.
+          </p>
+          <span class="service-arrow">↗</span>
+        </div>
+        <div class="service-item">
+          <div class="service-num">02</div>
+          <div class="service-name">Branding</div>
+          <p class="service-desc">
+            Identidades que comunican desde adentro. Marcas con propósito, con
+            voz y con carácter.
+          </p>
+          <span class="service-arrow">↗</span>
+        </div>
+        <div class="service-item">
+          <div class="service-num">03</div>
+          <div class="service-name">Estrategia</div>
+          <p class="service-desc">
+            Pensamiento antes de ejecución. Diagnóstico, posicionamiento y hoja
+            de ruta.
+          </p>
+          <span class="service-arrow">↗</span>
+        </div>
+        <div class="service-item">
+          <div class="service-num">04</div>
+          <div class="service-name">Diseño</div>
+          <p class="service-desc">
+            Piezas que no se olvidan. De brand books a assets digitales y todo
+            lo que está en el medio.
+          </p>
+          <span class="service-arrow">↗</span>
+        </div>
+        <div class="service-item">
+          <div class="service-num">05</div>
+          <div class="service-name">Activaciones</div>
+          <p class="service-desc">
+            Experiencias que conectan marcas con personas. Del concepto a la
+            producción.
+          </p>
+          <span class="service-arrow">↗</span>
+        </div>
+        <div class="service-item">
+          <div class="service-num">06</div>
+          <div class="service-name">Contenido</div>
+          <p class="service-desc">
+            Redes, email marketing, copywriting y narrativa de marca. Todo lo
+            que tu marca dice, bien dicho.
+          </p>
+          <span class="service-arrow">↗</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- CLIENTES / CASOS -->
+    <section id="clientes">
+      <div class="cases-header">
+        <p class="section-label">Casos & Clientes</p>
+        <h2 class="cases-heading">Marcas que<br />encontraron su voz.</h2>
+        <p class="cases-sub">
+          Trabajamos con marcas que necesitaban algo más que una agencia.
+          Necesitaban un socio creativo de verdad.
+        </p>
+      </div>
+      <div class="cases-grid">
+        <div class="case-card">
+          <div class="case-num">001</div>
+          <div>
+            <div class="case-name">WILOBANK</div>
+            <div class="case-type">Banco digital — Contenido & Redes</div>
+          </div>
+          <div class="case-bg-text">WB</div>
+        </div>
+        <div class="case-card accent">
+          <div class="case-num">002</div>
+          <div>
+            <div class="case-name">BPLAY</div>
+            <div class="case-type">
+              Apuestas online — Branding & Lanzamiento
+            </div>
+          </div>
+          <div class="case-bg-text">BP</div>
+        </div>
+        <div class="case-card light">
+          <div class="case-num">003</div>
+          <div>
+            <div class="case-name">ARTRO</div>
+            <div class="case-type">
+              Salud — Arquitectura de marca & Brand Book
+            </div>
+          </div>
+          <div class="case-bg-text">AR</div>
+        </div>
+        <div class="case-card light">
+          <div class="case-num">004</div>
+          <div>
+            <div class="case-name">NÜPARK</div>
+            <div class="case-type">Inmobiliario — Branding & Estrategia</div>
+          </div>
+          <div class="case-bg-text">NP</div>
+        </div>
+        <div class="case-card">
+          <div class="case-num">005</div>
+          <div>
+            <div class="case-name">CACIQUE</div>
+            <div class="case-type">Retail — Relanzamiento de marca</div>
+          </div>
+          <div class="case-bg-text">CA</div>
+        </div>
+        <div class="case-card accent">
+          <div class="case-num">006</div>
+          <div>
+            <div class="case-name">LAUGH</div>
+            <div class="case-type">
+              Agencia de medios — Identidad visual & narrativa
+            </div>
+          </div>
+          <div class="case-bg-text">LA</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section id="contacto">
+      <div class="contact-top">
+        <p class="section-label">Contacto</p>
+        <h2 class="contact-heading">Encontremos<br />tu <span>marca.</span></h2>
+        <p class="contact-sub">
+          Contanos en qué estás, y armamos el equipo ideal para acompañarte.
+        </p>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-info">
+          <div class="contact-item">
+            <div class="contact-item-label">Email</div>
+            <div class="contact-item-val">
+              <a href="mailto:hola@rubric.com.ar">hola@rubric.com.ar</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-label">WhatsApp</div>
+            <div class="contact-item-val">
+              <a href="https://wa.me/5491100000000" target="_blank"
+                >+54 9 11 0000-0000</a
+              >
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-label">Instagram</div>
+            <div class="contact-item-val">
+              <a href="https://instagram.com/rubric.ar" target="_blank"
+                >@rubric.ar</a
+              >
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-label">LinkedIn</div>
+            <div class="contact-item-val">
+              <a href="https://linkedin.com/company/rubric-ar" target="_blank"
+                >Rubric Argentina</a
+              >
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-label">Sede</div>
+            <div class="contact-item-val">Buenos Aires, Argentina</div>
+          </div>
+        </div>
+        <form class="contact-form" onsubmit="handleSubmit(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Nombre</label>
+              <input type="text" placeholder="Tu nombre" required />
+            </div>
+            <div class="form-group">
+              <label>Empresa</label>
+              <input type="text" placeholder="Tu empresa" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" placeholder="tu@email.com" required />
+          </div>
+          <div class="form-group">
+            <label>¿En qué podemos ayudarte?</label>
+            <select>
+              <option value="">Seleccioná un servicio</option>
+              <option>Publicidad</option>
+              <option>Branding</option>
+              <option>Estrategia</option>
+              <option>Diseño</option>
+              <option>Activaciones</option>
+              <option>Contenido</option>
+              <option>No sé bien, quiero hablar</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Mensaje</label>
+            <textarea rows="4" placeholder="Contanos tu proyecto..."></textarea>
+          </div>
+          <button type="submit" class="form-submit">Enviar mensaje →</button>
+        </form>
+      </div>
+    </section>
+
+    <footer>
+      <span class="footer-copy"
+        >© 2025 Rubric — Agencia de publicidad colaborativa</span
+      >
+      <div class="footer-social">
+        <a href="https://instagram.com/rubric.ar" target="_blank">Instagram</a>
+        <a href="https://linkedin.com/company/rubric-ar" target="_blank"
+          >LinkedIn</a
+        >
+      </div>
+    </footer>
+
+    <script>
+      function handleSubmit(e) {
+        e.preventDefault();
+        const btn = e.target.querySelector(".form-submit");
+        btn.textContent = "Mensaje enviado ✓";
+        btn.style.background = "#2c5f2d";
+        setTimeout(() => {
+          btn.textContent = "Enviar mensaje →";
+          btn.style.background = "";
+          e.target.reset();
+        }, 3000);
+      }
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.style.opacity = "1";
+              entry.target.style.transform = "translateY(0)";
+            }
+          });
+        },
+        { threshold: 0.1 },
+      );
+
+      document
+        .querySelectorAll(
+          ".service-item, .case-card, .about-stat, .contact-item",
+        )
+        .forEach((el) => {
+          el.style.opacity = "0";
+          el.style.transform = "translateY(20px)";
+          el.style.transition = "opacity 0.6s ease, transform 0.6s ease";
+          observer.observe(el);
+        });
+    </script>
+  </body>
+</html>
