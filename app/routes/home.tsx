@@ -1,12 +1,6 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import imageProject1 from "/proyectos/proyecto_1.png";
-import imageProject2 from "/proyectos/proyecto_2.png";
-import imageProject3 from "/proyectos/proyecto_3.png";
-import imageProject4 from "/proyectos/proyecto_4.png";
-import imageProject5 from "/proyectos/proyecto_5.png";
-import imageProject6 from "/proyectos/proyecto_6.png";
 
 import type { Route } from "./+types/home";
 
@@ -130,42 +124,42 @@ const projects = [
     category: "Wilobank",
     copy: "Bajá la App de #Wilobank y hacé que todas tus operaciones sean un disfrute y no una pesadilla.",
     tags: ["#HalloweenArgentina", "#TrucoOTrato", "#FelizHalloween"],
-    image: imageProject1,
+    image: "/proyectos/proyecto_1.png",
   },
   {
     client: "Experiencias Reales",
     category: "Wilobank",
     copy: "Las mejores decisiones arrancan con un buen desayuno. ¿Acaso regalarte un momento así no te cambia el sabor del día?",
     tags: ["#Wilobank"],
-    image: imageProject2,
+    image: "/proyectos/proyecto_2.png",
   },
   {
     client: "Institucional",
     category: "Wilobank",
     copy: "¡Tu mejor sucursal! Somos el 1er banco 100% digital de la Argentina. Disfrutá de operar 24/7 y todo al alcance de tu mano.",
     tags: [],
-    image: imageProject3,
+    image: "/proyectos/proyecto_3.png",
   },
   {
     client: "Navidad",
     category: "Wilobank",
     copy: "No creemos que en el trineo de Papá Noel esté el regalo que siempre quisiste. Con #Wilobank, no des más vueltas y regalate eso que las Navidades te viene esquivando.",
     tags: ["#FelizNavidad", "#Navidad2022"],
-    image: imageProject4,
+    image: "/proyectos/proyecto_4.png",
   },
   {
     client: "Ser De Wilo",
     category: "Wilobank",
     copy: "#SerDeWilo te ahorra todos los problemas de ir a un banco, porque literalmente no vas. Sumate al club.",
     tags: ["#SerDeWilo"],
-    image: imageProject5,
+    image: "/proyectos/proyecto_5.png",
   },
   {
     client: "Verano",
     category: "Wilobank",
     copy: "Así como #wilobank y tus operaciones van de la mano, estas vacaciones hay cosas que también #BankConTodo. ¿Cuál sumarías?",
     tags: ["#VeranitoWilero"],
-    image: imageProject6,
+    image: "/proyectos/proyecto_6.png",
   },
 ];
 
