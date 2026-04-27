@@ -1,6 +1,12 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import imageProject1 from "/proyectos/proyecto_1.png";
+import imageProject2 from "/proyectos/proyecto_2.png";
+import imageProject3 from "/proyectos/proyecto_3.png";
+import imageProject4 from "/proyectos/proyecto_4.png";
+import imageProject5 from "/proyectos/proyecto_5.png";
+import imageProject6 from "/proyectos/proyecto_6.png";
 
 import type { Route } from "./+types/home";
 
@@ -31,10 +37,11 @@ const stats: Stat[] = [
 
 function formatStatValue(
   value: number,
-  { prefix = "", suffix = "", padStart = 0 }: Pick<
-    Stat,
-    "prefix" | "suffix" | "padStart"
-  >,
+  {
+    prefix = "",
+    suffix = "",
+    padStart = 0,
+  }: Pick<Stat, "prefix" | "suffix" | "padStart">,
 ) {
   return `${prefix}${Math.round(value).toString().padStart(padStart, "0")}${suffix}`;
 }
@@ -123,42 +130,42 @@ const projects = [
     category: "Wilobank",
     copy: "Bajá la App de #Wilobank y hacé que todas tus operaciones sean un disfrute y no una pesadilla.",
     tags: ["#HalloweenArgentina", "#TrucoOTrato", "#FelizHalloween"],
-    image: "",
+    image: imageProject1,
   },
   {
     client: "Experiencias Reales",
     category: "Wilobank",
     copy: "Las mejores decisiones arrancan con un buen desayuno. ¿Acaso regalarte un momento así no te cambia el sabor del día?",
     tags: ["#Wilobank"],
-    image: "",
+    image: imageProject2,
   },
   {
     client: "Institucional",
     category: "Wilobank",
     copy: "¡Tu mejor sucursal! Somos el 1er banco 100% digital de la Argentina. Disfrutá de operar 24/7 y todo al alcance de tu mano.",
     tags: [],
-    image: "",
+    image: imageProject3,
   },
   {
     client: "Navidad",
     category: "Wilobank",
     copy: "No creemos que en el trineo de Papá Noel esté el regalo que siempre quisiste. Con #Wilobank, no des más vueltas y regalate eso que las Navidades te viene esquivando.",
     tags: ["#FelizNavidad", "#Navidad2022"],
-    image: "",
+    image: imageProject4,
   },
   {
     client: "Ser De Wilo",
     category: "Wilobank",
     copy: "#SerDeWilo te ahorra todos los problemas de ir a un banco, porque literalmente no vas. Sumate al club.",
     tags: ["#SerDeWilo"],
-    image: "",
+    image: imageProject5,
   },
   {
     client: "Verano",
     category: "Wilobank",
     copy: "Así como #wilobank y tus operaciones van de la mano, estas vacaciones hay cosas que también #BankConTodo. ¿Cuál sumarías?",
     tags: ["#VeranitoWilero"],
-    image: "",
+    image: imageProject6,
   },
 ];
 
@@ -285,9 +292,7 @@ export default function Home() {
       }
 
       const stIn = (trigger: string) => ({ trigger, start: "top 78%" });
-      const statNumbers = gsap.utils.toArray<HTMLElement>(
-        "[data-stat-number]",
-      );
+      const statNumbers = gsap.utils.toArray<HTMLElement>("[data-stat-number]");
 
       if (reduced) {
         statNumbers.forEach((statNumber) => {
