@@ -1,12 +1,6 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import type { Route } from "./+types/home";
-
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
 
 const NOISE_BG = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.22 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`;
 
@@ -216,9 +210,20 @@ export default function Home() {
   const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
+    let cancelled = false;
     const cleanups: Array<() => void> = [];
+    let ctx: { revert: () => void } | undefined;
 
-    const ctx = gsap.context(() => {
+    void Promise.all([import("gsap"), import("gsap/ScrollTrigger")]).then(
+      ([gsapModule, scrollTriggerModule]) => {
+        if (cancelled) return;
+
+        const gsap = gsapModule.default;
+        const { ScrollTrigger } = scrollTriggerModule;
+
+        gsap.registerPlugin(ScrollTrigger);
+
+        ctx = gsap.context(() => {
       const reduced = window.matchMedia(
         "(prefers-reduced-motion: reduce)",
       ).matches;
@@ -573,11 +578,18 @@ export default function Home() {
         hero.removeEventListener("mouseenter", onEnter);
         hero.removeEventListener("mouseleave", onLeave);
       });
-    }, containerRef);
+        }, containerRef);
+      },
+    ).catch((error: unknown) => {
+      if (import.meta.env.DEV) {
+        console.error("Failed to load GSAP", error);
+      }
+    });
 
     return () => {
+      cancelled = true;
       cleanups.forEach((fn) => fn());
-      ctx.revert();
+      ctx?.revert();
     };
   }, []);
 
