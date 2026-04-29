@@ -1,9 +1,63 @@
+import { useEffect, useRef } from "react";
+
+import {
+  loadGsapWithScrollTrigger,
+  prefersReducedMotion,
+  reportGsapLoadError,
+} from "./animations";
 import { services } from "./data";
 
 export function ServicesSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    let ctx: { revert: () => void } | undefined;
+
+    void loadGsapWithScrollTrigger()
+      .then(({ gsap }) => {
+        if (cancelled || !sectionRef.current || prefersReducedMotion()) return;
+
+        const section = sectionRef.current;
+
+        ctx = gsap.context(() => {
+          gsap.from(section.querySelectorAll(":scope > div:first-of-type > *"), {
+            y: 50,
+            autoAlpha: 0,
+            stagger: 0.12,
+            duration: 0.9,
+            ease: "power3.out",
+            scrollTrigger: { trigger: section, start: "top 78%" },
+          });
+
+          const revealItems =
+            section.querySelectorAll<HTMLElement>("[data-reveal]");
+          gsap.from(revealItems, {
+            y: 70,
+            autoAlpha: 0,
+            scale: 0.96,
+            stagger: 0.08,
+            duration: 0.9,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: revealItems[0] ?? section,
+              start: "top 78%",
+            },
+          });
+        }, section);
+      })
+      .catch(reportGsapLoadError);
+
+    return () => {
+      cancelled = true;
+      ctx?.revert();
+    };
+  }, []);
+
   return (
     <section
       id="servicios"
+      ref={sectionRef}
       className="bg-rubric-black px-16 py-32 max-[900px]:px-8 max-[900px]:py-20">
       <div className="mb-20 flex items-end justify-between gap-8 max-[900px]:flex-col max-[900px]:items-start">
         <h2 className="font-display text-[clamp(3rem,7vw,7rem)] leading-none">

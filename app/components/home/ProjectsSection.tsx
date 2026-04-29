@@ -1,17 +1,142 @@
+import { useEffect, useRef } from "react";
+
+import {
+  loadGsapWithScrollTrigger,
+  prefersReducedMotion,
+  reportGsapLoadError,
+} from "./animations";
 import { projects } from "./data";
 
 export function ProjectsSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    const cleanups: Array<() => void> = [];
+    let ctx: { revert: () => void } | undefined;
+
+    void loadGsapWithScrollTrigger()
+      .then(({ gsap }) => {
+        if (cancelled || !sectionRef.current || prefersReducedMotion()) return;
+
+        const section = sectionRef.current;
+
+        ctx = gsap.context(() => {
+          const titleBlock = section.querySelector<HTMLElement>(
+            ".proyectos-title-block",
+          );
+          const arrow = section.querySelector<HTMLElement>(".proyectos-arrow");
+          const projectsContainer = section.querySelector<HTMLElement>(
+            ".projects-container",
+          );
+          const projectsCards =
+            section.querySelector<HTMLElement>(".projects-cards");
+
+          if (titleBlock) {
+            gsap.from(titleBlock, {
+              y: 60,
+              autoAlpha: 0,
+              duration: 1.0,
+              ease: "power3.out",
+              scrollTrigger: { trigger: titleBlock, start: "top 78%" },
+            });
+          }
+
+          if (titleBlock && arrow) {
+            gsap.to(arrow, {
+              rotate: 90,
+              ease: "none",
+              scrollTrigger: {
+                trigger: titleBlock,
+                start: "bottom bottom",
+                end: "bottom 60%",
+                scrub: 2,
+              },
+            });
+          }
+
+          if (!projectsContainer || !projectsCards) return;
+
+          const mm = gsap.matchMedia();
+          cleanups.push(() => mm.revert());
+
+          mm.add("(min-width: 768px)", () => {
+            const cards = Array.from(
+              section.querySelectorAll<HTMLElement>(".project-card"),
+            );
+            if (cards.length < 2) return;
+
+            gsap.set(cards.slice(1), { opacity: 0, yPercent: 100 });
+
+            const tl = gsap.timeline({
+              scrollTrigger: {
+                trigger: projectsContainer,
+                pin: projectsCards,
+                pinType: "fixed",
+                pinSpacing: true,
+                start: "top top",
+                end: "bottom bottom",
+                scrub: 5,
+              },
+            });
+
+            tl.to({}, { duration: 10 });
+            for (let i = 1; i < cards.length; i++) {
+              tl.to(cards[i - 1], {
+                scale: 0.7,
+                opacity: 0,
+                duration: 20,
+                ease: "power2.inOut",
+              })
+                .to(
+                  cards[i],
+                  {
+                    yPercent: 0,
+                    opacity: 1,
+                    duration: 20,
+                    ease: "power2.inOut",
+                  },
+                  "<",
+                )
+                .to({}, { duration: 10 });
+            }
+            tl.to(cards[cards.length - 1], {
+              scale: 0.7,
+              opacity: 0,
+              duration: 20,
+              ease: "power2.inOut",
+            });
+          });
+
+          mm.add("(max-width: 767px)", () => {
+            gsap.set(section.querySelectorAll(".project-card"), {
+              clearProps: "all",
+            });
+          });
+        }, section);
+      })
+      .catch(reportGsapLoadError);
+
+    return () => {
+      cancelled = true;
+      cleanups.forEach((fn) => fn());
+      ctx?.revert();
+    };
+  }, []);
+
   return (
-    <section id="proyectos" className="bg-rubric-cream text-rubric-black">
+    <section
+      id="proyectos"
+      ref={sectionRef}
+      className="bg-rubric-cream text-rubric-black">
       <div className="proyectos-title-block flex items-end justify-between gap-8 px-16 pt-32 pb-16 max-[900px]:px-8 max-[900px]:pt-20 max-[900px]:pb-10">
         <div>
           <p className="mb-6 text-[0.72rem] font-medium tracking-[0.22em] text-rubric-red uppercase">
             Proyectos
           </p>
           <h2 className="font-display text-[clamp(3rem,7vw,7rem)] leading-none">
-            Trabajos que
-            <br />
-            hablan por sí solos<span className="text-rubric-red">.</span>
+            ALGUNOS CASOS
+            <br />Y TRABAJOS<span className="text-rubric-red">.</span>
           </h2>
         </div>
         <svg

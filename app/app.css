@@ -33,3 +33,8 @@ body {
   @apply overflow-x-hidden bg-rubric-black font-sans text-rubric-white;
   line-height: normal;
 }
+
+.hero-glass-word {
+  filter: blur(var(--hero-word-blur, 0px));
+  opacity: 0;
+}

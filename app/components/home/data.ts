@@ -18,8 +18,8 @@ export function formatStatValue(
 }
 
 export const stats: Stat[] = [
-  { value: 15, label: "Años de experiencia combinada", prefix: "+" },
-  { value: 30, label: "Marcas acompañadas", prefix: "+" },
+  { value: 20, label: "Años de experiencia combinada", prefix: "+" },
+  { value: 30, label: "Marcas atendidas", prefix: "+" },
   { value: 100, label: "Talento senior para cada proyecto", suffix: "%" },
   {
     value: 1,
@@ -37,12 +37,12 @@ export const services = [
   [
     "02",
     "Branding",
-    "Identidades que comunican desde adentro. Marcas con propósito, con voz y con carácter.",
+    "Desde la estrategia hasta la ejecución. Trabajamos en cada dimensión de las marcas con el talento justo para cada etapa. Identidades y narrativa desde adentro. Marcas con propósito, con voz y con valor.",
   ],
   [
     "03",
     "Estrategia",
-    "Pensamiento antes de ejecución. Diagnóstico, posicionamiento y hoja de ruta.",
+    "Redes, email marketing, copywriting y narrativa de marca. Todo lo que las marcas dicen, bien dicho.",
   ],
   [
     "04",
@@ -57,51 +57,51 @@ export const services = [
   [
     "06",
     "Contenido",
-    "Redes, email marketing, copywriting y narrativa de marca. Todo lo que tu marca dice, bien dicho.",
+    "Redes, email marketing, copywriting y narrativa de marca. Todo lo que las marcas dicen, bien dicho.",
   ],
 ];
 
 export const cases = [
   {
     number: "001",
-    name: "WILOBANK",
-    type: "Banco digital — Contenido & Redes",
+    name: "WILOBANK - BANCO DIGITAL",
+    type: "MKT DIGITAL, CONTENIDO Y REDES",
     initials: "WB",
     variant: "dark",
   },
   {
     number: "002",
-    name: "BPLAY",
-    type: "Apuestas online — Branding & Lanzamiento",
+    name: "BPLAY . APUESTAS ONLINE",
+    type: "BRANDING - LANZAMIENTO",
     initials: "BP",
     variant: "accent",
   },
   {
     number: "003",
-    name: "ARTRO",
-    type: "Salud — Arquitectura de marca & Brand Book",
+    name: "ARTRO - MEDICINA DEPORTIVA",
+    type: "ATENCION INTEGRAL",
     initials: "AR",
     variant: "light",
   },
   {
     number: "004",
-    name: "NÜPARK",
-    type: "Inmobiliario — Branding & Estrategia",
-    initials: "NP",
-    variant: "light",
-  },
-  {
-    number: "005",
-    name: "CACIQUE",
-    type: "Retail — Relanzamiento de marca",
+    name: "CACIQUE - DESARROLLOS",
+    type: "RE BRANDING Y ARQUITECTURA DE MARCAS",
     initials: "CA",
     variant: "dark",
   },
   {
+    number: "005",
+    name: "NÜPARK",
+    type: "NAMING Y BRANDBOOK",
+    initials: "NP",
+    variant: "light",
+  },
+  {
     number: "006",
-    name: "LAUGH",
-    type: "Agencia de medios — Identidad visual & narrativa",
-    initials: "LA",
+    name: "MEDIALAUGH",
+    type: "RE BRANDING ESTRATEGICO Y ASSETS DIGITALES",
+    initials: "ML",
     variant: "accent",
   },
 ];
@@ -164,23 +164,23 @@ export const partnerLogos = [
 export const contactItems = [
   {
     label: "Email",
-    value: "hola@rubric.com.ar",
-    href: "mailto:hola@rubric.com.ar",
+    value: "agencia@rubric.com.ar",
+    href: "mailto:agencia@rubric.com.ar",
   },
   {
     label: "WhatsApp",
-    value: "+54 9 11 0000-0000",
-    href: "https://wa.me/5491100000000",
+    value: "+54 9 11 4023-3522",
+    href: "https://wa.me/5491140233522",
   },
   {
     label: "Instagram",
-    value: "@rubric.ar",
-    href: "https://instagram.com/rubric.ar",
+    value: "@rubric_agencia",
+    href: "https://www.instagram.com/rubric_agencia",
   },
   {
     label: "LinkedIn",
     value: "Rubric Argentina",
-    href: "https://linkedin.com/company/rubric-ar",
+    href: "https://www.linkedin.com/company/rubric-agencia/",
   },
   {
     label: "Sede",
