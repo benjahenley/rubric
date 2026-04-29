@@ -30,6 +30,7 @@ export function meta({}: Route.MetaArgs) {
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
+  const [ready, setReady] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
   // Cross-component intro choreography.
@@ -47,6 +48,7 @@ export default function Home() {
           if (reduced) {
             gsap.set(".nav-logo-link", { autoAlpha: 1 });
             gsap.set(".hero-glass-word", { autoAlpha: 1 });
+            setReady(true);
           } else {
             let logoToNav = { x: 0, y: 0, scale: 1 };
 
@@ -90,6 +92,7 @@ export default function Home() {
               scale: 0.94,
               "--hero-word-blur": "18px",
             });
+            setReady(true);
 
             const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
 
@@ -160,7 +163,10 @@ export default function Home() {
           }
         }, containerRef);
       })
-      .catch(reportGsapLoadError);
+      .catch((error) => {
+        reportGsapLoadError(error);
+        setReady(true);
+      });
 
     return () => {
       cancelled = true;
@@ -179,7 +185,9 @@ export default function Home() {
   }
 
   return (
-    <div ref={containerRef}>
+    <div
+      ref={containerRef}
+      className={`site-shell${ready ? " site-shell-ready" : ""}`}>
       <NavBar />
       <HeroSection />
       <AboutSection />

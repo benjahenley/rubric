@@ -34,6 +34,15 @@ body {
   line-height: normal;
 }
 
+.site-shell {
+  opacity: 0;
+}
+
+.site-shell-ready {
+  opacity: 1;
+  transition: opacity 180ms ease;
+}
+
 .hero-glass-word {
   filter: blur(var(--hero-word-blur, 0px));
   opacity: 0;
