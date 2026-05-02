@@ -28,74 +28,109 @@ export const stats: Stat[] = [
   },
 ];
 
-export const services = [
-  [
-    "01",
-    "Publicidad",
-    "Campañas con ideas que traccionan. Creatividad al servicio de objetivos reales.",
-  ],
-  [
-    "02",
-    "Branding",
-    "Desde la estrategia hasta la ejecución. Trabajamos en cada dimensión de las marcas con el talento justo para cada etapa. Identidades y narrativa desde adentro. Marcas con propósito, con voz y con valor.",
-  ],
-  [
-    "03",
-    "Estrategia",
-    "Redes, email marketing, copywriting y narrativa de marca. Todo lo que las marcas dicen, bien dicho.",
-  ],
-  [
-    "04",
-    "Diseño",
-    "Piezas que no se olvidan. De brand books a assets digitales y todo lo que está en el medio.",
-  ],
-  [
-    "05",
-    "Activaciones",
-    "Experiencias que conectan marcas con personas. Del concepto a la producción.",
-  ],
-  [
-    "06",
-    "Contenido",
-    "Redes, email marketing, copywriting y narrativa de marca. Todo lo que las marcas dicen, bien dicho.",
-  ],
+export type Service = {
+  number: string;
+  name: string;
+  description: string;
+  slug: string;
+  canImage: string;
+  color: string;
+};
+
+export const services: Service[] = [
+  {
+    number: "01",
+    name: "Publicidad",
+    description:
+      "Campañas con ideas que traccionan. Creatividad al servicio de objetivos reales.",
+    slug: "publicidad",
+    canImage: "/images/cans/publicidad.webp",
+    color: "#C8341A",
+  },
+  {
+    number: "02",
+    name: "Branding",
+    description:
+      "Desde la estrategia hasta la ejecución. Identidades y narrativa desde adentro. Marcas con propósito, con voz y con valor.",
+    slug: "branding",
+    canImage: "/images/cans/branding.webp",
+    color: "#E05A1A",
+  },
+  {
+    number: "03",
+    name: "Estrategia",
+    description:
+      "Redes, email marketing, copywriting y narrativa de marca. Todo lo que las marcas dicen, bien dicho.",
+    slug: "estrategia",
+    canImage: "/images/cans/estrategia.webp",
+    color: "#4A5E3A",
+  },
+  {
+    number: "04",
+    name: "Diseño",
+    description:
+      "Piezas que no se olvidan. De brand books a assets digitales y todo lo que está en el medio.",
+    slug: "diseno",
+    canImage: "/images/cans/diseno.webp",
+    color: "#3D3530",
+  },
+  {
+    number: "05",
+    name: "Activaciones",
+    description:
+      "Experiencias que conectan marcas con personas. Del concepto a la producción.",
+    slug: "activaciones",
+    canImage: "/images/cans/activaciones.webp",
+    color: "#2A4A6B",
+  },
+  {
+    number: "06",
+    name: "Contenido",
+    description:
+      "Redes, email marketing, copywriting y narrativa de marca. Todo lo que las marcas dicen, bien dicho.",
+    slug: "contenido",
+    canImage: "/images/cans/contenido.webp",
+    color: "#5E2A35",
+  },
 ];
 
 export const cases = [
   {
     number: "001",
-    name: "WILOBANK - BANCO DIGITAL",
+    name: ["WILOBANK ", "BANCO DIGITAL"],
     type: "MKT DIGITAL, CONTENIDO Y REDES",
     initials: "WB",
     variant: "dark",
+    coverImage: "/clientes/willobank.jpg",
   },
   {
     number: "002",
-    name: "BPLAY . APUESTAS ONLINE",
+    name: ["BPLAY ", "APUESTAS ONLINE"],
     type: "BRANDING - LANZAMIENTO",
     initials: "BP",
     variant: "accent",
   },
   {
     number: "003",
-    name: "ARTRO - MEDICINA DEPORTIVA",
-    type: "ATENCION INTEGRAL",
+    name: ["ARTRO ", "MEDICINA DEPORTIVA"],
+    type: "ATENCIÓN INTEGRAL",
     initials: "AR",
     variant: "light",
   },
   {
     number: "004",
-    name: "CACIQUE - DESARROLLOS",
-    type: "RE BRANDING Y ARQUITECTURA DE MARCAS",
-    initials: "CA",
-    variant: "dark",
-  },
-  {
-    number: "005",
     name: "NÜPARK",
     type: "NAMING Y BRANDBOOK",
     initials: "NP",
     variant: "light",
+  },
+  {
+    number: "005",
+    name: "GRUPO BOLDT ",
+    type: "RE BRANDING Y ARQUITECTURA DE MARCAS",
+    initials: "GB",
+    variant: "dark",
+    coverImage: "/clientes/grupoboldt.png",
   },
   {
     number: "006",
@@ -103,6 +138,7 @@ export const cases = [
     type: "RE BRANDING ESTRATEGICO Y ASSETS DIGITALES",
     initials: "ML",
     variant: "accent",
+    stickerImage: "/clientes/sticker-mediaLaugh.svg",
   },
 ];
 

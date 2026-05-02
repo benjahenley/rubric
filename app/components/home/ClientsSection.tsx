@@ -1,11 +1,23 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, type CSSProperties } from "react";
 
 import {
   loadGsapWithScrollTrigger,
   prefersReducedMotion,
   reportGsapLoadError,
 } from "./animations";
-import { cases } from "./data";
+import { cases, services } from "./data";
+
+const caseCardAspectRatio = "85.82 / 141.73";
+
+function renderCaseName(name: string | string[]) {
+  if (typeof name === "string") return name;
+
+  return name.map((line, index) => (
+    <span className="block" key={`${line}-${index}`}>
+      {line.trim()}
+    </span>
+  ));
+}
 
 export function ClientsSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -49,8 +61,9 @@ export function ClientsSection() {
             },
           });
 
-          const cardContainers =
-            section.querySelectorAll<HTMLElement>(".case-card-container");
+          const cardContainers = section.querySelectorAll<HTMLElement>(
+            ".case-card-container",
+          );
 
           cardContainers.forEach((container, index) => {
             const inner =
@@ -135,50 +148,92 @@ export function ClientsSection() {
           Necesitaban un socio creativo de verdad.
         </p>
       </div>
-      <div className="grid grid-cols-3 gap-[2px] max-[900px]:grid-cols-2 max-[640px]:grid-cols-1">
-        {cases.map((caseItem) => {
-          const toneClass =
-            caseItem.variant === "accent"
-              ? "bg-rubric-red text-rubric-white"
-              : caseItem.variant === "light"
-                ? "bg-rubric-cream text-rubric-black"
-                : "bg-rubric-black text-rubric-white";
-
+      <div className="mx-auto grid max-w-[1300px] grid-cols-3 gap-[2px] max-[900px]:max-w-[740px] max-[900px]:grid-cols-2 max-[640px]:max-w-[360px] max-[640px]:grid-cols-1">
+        {cases.map((caseItem, index) => {
+          const canColor = services[index % services.length].color;
+          const isMediaLaugh = caseItem.stickerImage;
           const faceStyle = {
             backfaceVisibility: "hidden",
             WebkitBackfaceVisibility: "hidden",
+            backgroundColor: canColor,
+            color: "#f5f0e8",
           } as const;
+          const frontStyle = caseItem.coverImage
+            ? ({
+                ...faceStyle,
+                backgroundColor: "#000",
+                backgroundImage: `url(${caseItem.coverImage})`,
+                backgroundPosition: "center",
+                backgroundSize: "cover",
+              } satisfies CSSProperties)
+            : faceStyle;
+          const backStyle = isMediaLaugh
+            ? ({
+                ...faceStyle,
+                backgroundColor: "#000",
+                color: "#d6f20c",
+                transform: "rotateY(180deg)",
+              } satisfies CSSProperties)
+            : ({
+                ...faceStyle,
+                transform: "rotateY(180deg)",
+              } satisfies CSSProperties);
 
           return (
             <div
-              className="case-card-container relative z-0 min-h-[320px] [perspective:1000px] hover:z-[1] max-[700px]:min-h-[300px]"
+              className="case-card-container relative z-0 [perspective:1000px] hover:z-[1]"
               data-reveal
-              key={caseItem.number}>
+              key={caseItem.number}
+              style={{ aspectRatio: caseCardAspectRatio }}>
               <div
-                className="case-card-inner relative min-h-[320px] w-full transition-transform duration-700 max-[700px]:min-h-[300px]"
+                className="case-card-inner relative h-full w-full transition-transform duration-700"
                 style={{ transformStyle: "preserve-3d" }}>
                 <div
-                  className={`absolute inset-0 flex flex-col justify-between overflow-hidden px-10 py-14 max-[700px]:px-6 max-[700px]:py-9 ${toneClass}`}
-                  style={faceStyle}>
-                  <div className="mb-auto font-display text-[0.85rem] tracking-[0.1em] opacity-40">
-                    {caseItem.number}
-                  </div>
-                  <div>
-                    <div className="font-display text-[3rem] leading-[0.95] max-[700px]:text-[2.35rem]">
-                      {caseItem.name}
-                    </div>
-                  </div>
-                  <div className="pointer-events-none absolute right-[-1rem] bottom-[-1rem] select-none font-display text-[8rem] leading-none opacity-[0.04]">
-                    {caseItem.initials}
-                  </div>
+                  className="absolute inset-0 flex flex-col justify-between overflow-hidden px-10 py-14 max-[700px]:px-6 max-[700px]:py-9"
+                  style={frontStyle}>
+                  {caseItem.coverImage ? (
+                    <>
+                      <div className="font-display text-[0.85rem] tracking-[0.1em] text-white opacity-70">
+                        {caseItem.number}
+                      </div>
+                      <div>
+                        <div className="max-w-[92%] font-display text-[3rem] leading-[0.95] text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.55)] max-[700px]:text-[2.35rem]">
+                          {renderCaseName(caseItem.name)}
+                        </div>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="mb-auto font-display text-[0.85rem] tracking-[0.1em] opacity-40">
+                        {caseItem.number}
+                      </div>
+                      <div>
+                        <div className="font-display text-[3rem] leading-[0.95] max-[700px]:text-[2.35rem]">
+                          {renderCaseName(caseItem.name)}
+                        </div>
+                      </div>
+                      <div className="pointer-events-none absolute right-[-1rem] bottom-[-1rem] select-none font-display text-[8rem] leading-none opacity-[0.04]">
+                        {caseItem.initials}
+                      </div>
+                    </>
+                  )}
                 </div>
 
                 <div
-                  className={`absolute inset-0 flex flex-col justify-between overflow-hidden px-10 py-14 max-[700px]:px-6 max-[700px]:py-9 ${toneClass}`}
-                  style={{
-                    ...faceStyle,
-                    transform: "rotateY(180deg)",
-                  }}>
+                  className="absolute inset-0 flex flex-col justify-between overflow-hidden px-10 py-14 max-[700px]:px-6 max-[700px]:py-9"
+                  style={backStyle}>
+                  {caseItem.stickerImage ? (
+                    <div
+                      aria-hidden="true"
+                      className="pointer-events-none absolute top-6 right-5 h-24 w-24 select-none max-[700px]:top-4 max-[700px]:right-3 max-[700px]:h-20 max-[700px]:w-20">
+                      <div className="absolute right-[14%] bottom-[2%] left-[14%] h-[18%] rounded-full bg-[#9faf0a]/35 blur-md" />
+                      <img
+                        alt=""
+                        className="relative h-full w-full object-contain drop-shadow-[0_10px_16px_rgba(79,89,2,0.22)]"
+                        src={caseItem.stickerImage}
+                      />
+                    </div>
+                  ) : null}
                   <div className="font-display text-[0.85rem] tracking-[0.1em] opacity-40">
                     {caseItem.number}
                   </div>

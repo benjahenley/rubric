@@ -11,6 +11,7 @@
   --color-rubric-red-dark: #9e2612;
 
   --animate-fade-up: fadeUp 0.9s ease both;
+  --animate-float: float 3s ease-in-out infinite;
 }
 
 @keyframes fadeUp {
@@ -22,6 +23,278 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-8px); }
+}
+
+.spray-stage {
+  position: relative;
+  min-height: clamp(560px, 58vw, 780px);
+  margin-inline: -4rem;
+  overflow: hidden;
+  perspective: 1200px;
+  perspective-origin: 42% 46%;
+}
+
+.spray-stage::before {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(
+      ellipse 55% 90% at 22% 78%,
+      rgba(245, 240, 232, 0.14) 0%,
+      rgba(245, 240, 232, 0.05) 35%,
+      transparent 65%
+    ),
+    radial-gradient(
+      ellipse 70% 90% at 88% 18%,
+      rgba(0, 0, 0, 0.55) 0%,
+      rgba(0, 0, 0, 0.25) 35%,
+      transparent 70%
+    );
+  content: "";
+  pointer-events: none;
+}
+
+.spray-can {
+  position: absolute;
+  top: var(--can-y);
+  left: var(--can-x);
+  width: clamp(9rem, var(--can-width), 31rem);
+  aspect-ratio: 3 / 5;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+  opacity: 1;
+  filter: brightness(var(--can-light, 1));
+  transform: translate3d(0, 0, 0) rotate(var(--can-rotate));
+  transform-origin: 50% 72%;
+  transform-style: preserve-3d;
+  transition:
+    opacity 260ms ease,
+    transform 360ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 360ms ease;
+  will-change: transform, opacity, filter;
+}
+
+.spray-can::after {
+  position: absolute;
+  right: 10%;
+  bottom: 2%;
+  left: 10%;
+  height: 8%;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.55);
+  content: "";
+  filter: blur(18px);
+  opacity: 0.35;
+  transform: translateZ(-70px);
+  transition: opacity 260ms ease;
+}
+
+.spray-can-image,
+.spray-can-fallback {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.spray-can-image {
+  object-fit: contain;
+  filter: contrast(1.03) saturate(0.98);
+  pointer-events: none;
+  user-select: none;
+}
+
+.spray-can-fallback {
+  display: none;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid rgba(245, 240, 232, 0.16);
+  border-radius: 48% 48% 7% 7% / 7% 7% 3% 3%;
+  background: rgb(245, 240, 232);
+  color: rgb(10, 10, 10);
+  pointer-events: none;
+}
+
+.spray-can-fallback[data-visible="true"] {
+  display: grid;
+}
+
+.spray-can-fallback::before,
+.spray-can-fallback::after {
+  position: absolute;
+  right: 9%;
+  left: 9%;
+  height: 8%;
+  border: 1px solid rgba(10, 10, 10, 0.2);
+  content: "";
+}
+
+.spray-can-fallback::before {
+  top: 9%;
+  border-radius: 50% 50% 8% 8%;
+  background: rgba(245, 240, 232, 0.68);
+}
+
+.spray-can-fallback::after {
+  bottom: 3%;
+  border-radius: 0 0 50% 50%;
+  background: rgba(10, 10, 10, 0.12);
+}
+
+.spray-can-fallback-number {
+  position: absolute;
+  top: 18%;
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 3vw, 2.6rem);
+  line-height: 1;
+  letter-spacing: 0.08em;
+}
+
+.spray-can-fallback-name {
+  position: absolute;
+  left: 13%;
+  top: 30%;
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 7vw, 6.4rem);
+  line-height: 0.82;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+}
+
+.spray-can[data-active="true"] {
+  opacity: 1;
+  filter: brightness(1.12) saturate(1.08);
+  transform: translate3d(0, var(--can-lift, -80px), 0) rotate(0deg);
+}
+
+.spray-can[data-active="true"]::after {
+  opacity: 0.5;
+}
+
+.spray-can[data-dimmed="true"] {
+  opacity: 0.32;
+  transform: translate3d(0, 0, 0) rotate(var(--can-rotate)) scale(0.96);
+}
+
+.spray-can:focus-visible {
+  outline: 1px solid rgb(200, 52, 26);
+  outline-offset: 10px;
+}
+
+.spray-service-copy {
+  position: absolute;
+  right: clamp(2rem, 5vw, 5rem);
+  bottom: clamp(4rem, 8vw, 7rem);
+  z-index: 40;
+  width: min(420px, 32vw);
+  opacity: 0;
+  pointer-events: none;
+  text-align: right;
+  transform: translateY(16px);
+  transition:
+    opacity 260ms ease,
+    transform 360ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.spray-service-copy[data-visible="true"] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.spray-service-copy p {
+  margin-left: auto;
+  font-size: 0.95rem;
+  font-weight: 300;
+  line-height: 1.7;
+  color: rgba(245, 240, 232, 0.62);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spray-can,
+  .spray-service-copy {
+    transition: none;
+  }
+}
+
+@media (min-width: 901px) and (max-width: 1400px) {
+  .spray-stage {
+    min-height: clamp(820px, 78vw, 1000px);
+    perspective-origin: 50% 42%;
+  }
+
+  .spray-can {
+    width: clamp(10rem, 16vw, 17rem);
+  }
+
+  .spray-can:nth-of-type(1) {
+    top: 5%;
+    left: 3%;
+  }
+
+  .spray-can:nth-of-type(2) {
+    top: 52%;
+    left: 18%;
+  }
+
+  .spray-can:nth-of-type(3) {
+    top: 51%;
+    left: 49%;
+  }
+
+  .spray-can:nth-of-type(4) {
+    top: 3%;
+    left: 34%;
+  }
+
+  .spray-can:nth-of-type(5) {
+    top: 6%;
+    left: 65%;
+  }
+
+  .spray-can:nth-of-type(6) {
+    top: 53%;
+    left: 80%;
+  }
+
+  .spray-service-copy {
+    right: 3rem;
+    bottom: 3rem;
+    width: min(390px, 38vw);
+  }
+}
+
+@media (max-width: 900px) {
+  .spray-stage {
+    min-height: 700px;
+    margin-inline: -2rem;
+    perspective-origin: 48% 38%;
+  }
+
+  .spray-can {
+    top: var(--can-mobile-y);
+    left: var(--can-mobile-x);
+    width: clamp(9rem, var(--can-mobile-width), 19rem);
+  }
+
+  .spray-can[data-active="true"] {
+    transform: translate3d(0, var(--can-mobile-lift, -50px), 0) rotate(0deg);
+  }
+
+  .spray-service-copy {
+    right: 2rem;
+    bottom: 2.5rem;
+    left: auto;
+    width: calc(100% - 4rem);
   }
 }
 
@@ -46,4 +319,27 @@ body {
 .hero-glass-word {
   filter: blur(var(--hero-word-blur, 0px));
   opacity: 0;
+}
+
+.logos-collage {
+  --client-logo-width: clamp(118px, 20.72vw, 1000px);
+  --client-logo-row-gap: calc(var(--client-logo-width) * 0.183);
+
+  width: min(100%, calc(var(--client-logo-width) * 4));
+  row-gap: var(--client-logo-row-gap);
+}
+
+.logos-collage-row {
+  column-gap: 0;
+}
+
+.logos-collage-image {
+  width: var(--client-logo-width);
+  aspect-ratio: 5 / 2;
+}
+
+@media (max-width: 900px) {
+  .logos-collage {
+    --client-logo-width: clamp(76px, 24.25vw, 186px);
+  }
 }
