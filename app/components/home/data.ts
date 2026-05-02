@@ -112,10 +112,12 @@ export const cases = [
   },
   {
     number: "003",
-    name: ["ARTRO ", "MEDICINA DEPORTIVA"],
+    name: "CACIQUE",
     type: "ATENCIÓN INTEGRAL",
-    initials: "AR",
+    initials: "CA",
     variant: "light",
+    coverImage: "/clientes/cacique.png",
+    coverFit: "halfLeft",
   },
   {
     number: "004",

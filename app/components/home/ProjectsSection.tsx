@@ -154,7 +154,9 @@ export function ProjectsSection() {
       </div>
 
       <div className="projects-container relative md:h-[600vh]">
-        <div className="projects-cards relative flex flex-col gap-24 px-8 pb-24 md:h-screen md:items-center md:justify-center md:gap-0 md:px-16 md:pb-0">
+        <div
+          aria-label="Carrusel de proyectos"
+          className="projects-cards relative flex flex-col gap-24 px-8 pb-24 md:h-screen md:items-center md:justify-center md:gap-0 md:px-16 md:pb-0">
           {projects.map((p, i) => (
             <article
               className="project-card w-full md:absolute md:inset-0 md:flex md:items-center md:justify-center md:px-16"
