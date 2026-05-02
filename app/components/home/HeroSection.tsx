@@ -116,7 +116,7 @@ export function HeroSection() {
           alt=""
           aria-hidden="true"
           className="absolute inset-0 h-full w-full object-cover opacity-55"
-          src="/banner.png"
+          src="/banner.webp"
         />
       </div>
       <div className="pointer-events-none absolute inset-0 z-1 bg-rubric-black/55" />
