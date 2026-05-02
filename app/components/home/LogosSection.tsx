@@ -283,10 +283,13 @@ export function LogosSection() {
             ))}
           </div>
           <div className="logos-agencies-copy">
-            <p className="font-display text-[clamp(2.7rem,5.2vw,5.8rem)] leading-none">
-              LOS COLABORADORES DE RUBRIC TRABAJAN O TRABAJARON EN CARGOS
-              DIRECTIVOS DE ESTAS AGENCIAS
+            <h2 className="font-display text-[clamp(3rem,7vw,7rem)] leading-none">
+              AGENCIAS
               <span className="text-rubric-red">.</span>
+            </h2>
+            <p className="mt-6 ml-auto max-w-[350px] text-[0.95rem] leading-[1.7] font-light text-[rgba(10,10,10,0.5)]">
+              Los colaboradores de Rubric trabajan o trabajaron en cargos
+              directivos de estas agencias.
             </p>
           </div>
         </div>
@@ -308,11 +311,15 @@ export function LogosSection() {
           },
           {
             copy: (
-              <p className="font-display text-[clamp(2.1rem,10vw,3.5rem)] leading-none">
-                LOS COLABORADORES DE RUBRIC TRABAJAN O TRABAJARON EN CARGOS
-                DIRECTIVOS DE ESTAS AGENCIAS
-                <span className="text-rubric-red">.</span>
-              </p>
+              <>
+                <h2 className="font-display text-[clamp(2.4rem,13vw,4.75rem)] leading-none">
+                  AGENCIAS<span className="text-rubric-red">.</span>
+                </h2>
+                <p className="mt-5 max-w-[500px] text-[0.95rem] leading-[1.7] font-light text-[rgba(10,10,10,0.5)]">
+                  Los colaboradores de Rubric trabajan o trabajaron en cargos
+                  directivos de estas agencias.
+                </p>
+              </>
             ),
             path: "/clientes/marcas",
             rows: agencyLogoRows,

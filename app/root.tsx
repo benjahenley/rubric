@@ -4,7 +4,6 @@ import {
   Meta,
   Outlet,
   Scripts,
-  ScrollRestoration,
 } from "react-router";
 
 import type { Route } from "./+types/root";
@@ -23,18 +22,42 @@ export const links: Route.LinksFunction = () => [
   },
 ];
 
+const scrollToTopOnReloadScript = `
+(() => {
+  if ("scrollRestoration" in history) {
+    history.scrollRestoration = "manual";
+  }
+
+  const forceTop = () => window.scrollTo(0, 0);
+  const navigation = performance.getEntriesByType("navigation")[0];
+
+  if (navigation && navigation.type === "reload") {
+    forceTop();
+    window.addEventListener("load", forceTop, { once: true });
+  }
+
+  window.addEventListener("pageshow", (event) => {
+    if (event.persisted) {
+      forceTop();
+    }
+  });
+})();
+`;
+
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <script
+          dangerouslySetInnerHTML={{ __html: scrollToTopOnReloadScript }}
+        />
         <Meta />
         <Links />
       </head>
       <body>
         {children}
-        <ScrollRestoration />
         <Scripts />
       </body>
     </html>

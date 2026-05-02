@@ -111,21 +111,18 @@ export function HeroSection() {
       id="inicio"
       ref={sectionRef}
       className="relative flex min-h-screen cursor-none flex-col justify-end overflow-hidden px-16 pt-32 pb-20 max-[900px]:px-8 max-[900px]:pt-28 max-[900px]:pb-16">
-      <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden opacity-45">
-        <iframe
+      <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
+        <img
+          alt=""
           aria-hidden="true"
-          className="absolute top-1/2 left-1/2 h-[56.25vw] min-h-full w-[177.77777778vh] min-w-full -translate-x-1/2 -translate-y-1/2 scale-[1.35] border-0"
-          src="https://www.youtube-nocookie.com/embed/fW4IEKA4gBQ?autoplay=1&mute=1&loop=1&playlist=fW4IEKA4gBQ&controls=0&disablekb=1&fs=0&iv_load_policy=3&modestbranding=1&playsinline=1&rel=0&showinfo=0"
-          title="Rubric banner video"
-          tabIndex={-1}
-          allow="autoplay; encrypted-media; picture-in-picture"
-          referrerPolicy="strict-origin-when-cross-origin"
+          className="absolute inset-0 h-full w-full object-cover opacity-55"
+          src="/banner.png"
         />
       </div>
-      <div className="pointer-events-none absolute inset-0 z-0 bg-rubric-black/55" />
+      <div className="pointer-events-none absolute inset-0 z-1 bg-rubric-black/55" />
       <div
         ref={cursorRef}
-        className="hero-cursor pointer-events-none fixed top-0 left-0 z-[150] h-12 w-12 rounded-full bg-rubric-white opacity-0 max-[900px]:hidden"
+        className="hero-cursor pointer-events-none fixed top-0 left-0 z-[150] h-3 w-3 rounded-full bg-rubric-white opacity-0 max-[900px]:hidden"
         style={{ mixBlendMode: "difference" }}
       />
       <div className="absolute top-0 left-16 z-10 h-screen w-px bg-[rgba(245,240,232,0.08)]" />
