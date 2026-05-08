@@ -118,12 +118,12 @@ export function AboutSection() {
         <p className="mb-6 text-[0.72rem] font-medium tracking-[0.22em] uppercase opacity-50">
           Quiénes somos
         </p>
-        <h2 className="mb-8 font-display text-[clamp(3rem,6vw,6rem)] leading-none tracking-[0.01em]">
+        <h2 className="mb-8 font-display font-semibold text-[clamp(3rem,6vw,6rem)] leading-none tracking-[0.01em] uppercase">
           Talento Senior
           <br />
           al <em className="not-italic text-rubric-red">servicio</em>
           <br />
-          de tu marca.
+          de las marcas.
         </h2>
         <p className="mb-8 text-[1.1rem] leading-[1.8] font-light text-[rgba(10,10,10,0.75)]">
           En Rubric reunimos al mejor talento publicitario para hacer fit con

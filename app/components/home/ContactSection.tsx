@@ -104,14 +104,11 @@ export function ContactSection({
         <p className="mb-6 text-[0.72rem] font-medium tracking-[0.22em] uppercase opacity-50">
           Contacto
         </p>
-        <h2 className="mb-8 font-display text-[clamp(4rem,12vw,13rem)] leading-[0.9]">
+        <h2 className="font-display font-semibold text-[clamp(4rem,12vw,13rem)] leading-[0.9] uppercase">
           DEJEMOS
           <br />
           UNA <span className="text-rubric-red">marca.</span>
         </h2>
-        <p className="max-w-[500px] text-[1.1rem] leading-[1.7] font-light text-[rgba(245,240,232,0.5)] italic">
-          Contanos en qué estás, y armamos el equipo ideal para acompañarte.
-        </p>
       </div>
       <div className="grid grid-cols-2 items-end gap-16 max-[900px]:grid-cols-1">
         <div className="flex flex-col gap-10">

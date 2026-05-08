@@ -6,6 +6,8 @@ type CanStageStyle = CSSProperties & {
   "--can-x": string;
   "--can-y": string;
   "--can-width": string;
+  "--can-tablet-x": string;
+  "--can-tablet-width": string;
   "--can-rotate": string;
   "--can-light": string;
   "--can-lift": string;
@@ -19,6 +21,8 @@ export type SprayCanLayout = {
   x: string;
   y: string;
   width: string;
+  tabletX: string;
+  tabletWidth: string;
   rotate: string;
   zIndex: number;
   light: number;
@@ -34,6 +38,8 @@ type Props = {
   layout: SprayCanLayout;
   isActive: boolean;
   isDimmed: boolean;
+  variant?: "stage" | "carousel";
+  interactive?: boolean;
   onActivate: (slug: string) => void;
   onDeactivate: () => void;
 };
@@ -43,6 +49,8 @@ export function SprayCanCard({
   layout,
   isActive,
   isDimmed,
+  variant = "stage",
+  interactive = true,
   onActivate,
   onDeactivate,
 }: Props) {
@@ -52,6 +60,8 @@ export function SprayCanCard({
     "--can-x": layout.x,
     "--can-y": layout.y,
     "--can-width": layout.width,
+    "--can-tablet-x": layout.tabletX,
+    "--can-tablet-width": layout.tabletWidth,
     "--can-rotate": layout.rotate,
     "--can-light": String(layout.light),
     "--can-lift": layout.lift,
@@ -65,17 +75,18 @@ export function SprayCanCard({
   return (
     <button
       type="button"
-      className="spray-can group"
+      className="spray-can group mt-10"
       data-active={isActive ? "true" : undefined}
+      data-layout={variant}
       data-dimmed={isDimmed ? "true" : undefined}
       data-can-card
       style={style}
       aria-label={`Ver servicio ${service.name}`}
-      onBlur={onDeactivate}
-      onClick={() => onActivate(service.slug)}
-      onFocus={() => onActivate(service.slug)}
-      onPointerEnter={() => onActivate(service.slug)}
-      onPointerLeave={onDeactivate}>
+      onBlur={interactive ? onDeactivate : undefined}
+      onClick={interactive ? () => onActivate(service.slug) : undefined}
+      onFocus={interactive ? () => onActivate(service.slug) : undefined}
+      onPointerEnter={interactive ? () => onActivate(service.slug) : undefined}
+      onPointerLeave={interactive ? onDeactivate : undefined}>
       {!imageFailed ? (
         <img
           src={service.canImage}

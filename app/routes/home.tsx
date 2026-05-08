@@ -7,7 +7,6 @@ import { Footer } from "~/components/home/Footer";
 import { HeroSection } from "~/components/home/HeroSection";
 import { LogosSection } from "~/components/home/LogosSection";
 import { NavBar } from "~/components/home/NavBar";
-import { ProjectsSection } from "~/components/home/ProjectsSection";
 import { ServicesSection } from "~/components/home/ServicesSection";
 import {
   loadGsap,
@@ -83,9 +82,8 @@ export default function Home() {
             gsap.set(".hero-logo-lockup", {
               transformOrigin: "center center",
             });
-            gsap.set(".hero-tag", { autoAlpha: 0, y: -18 });
             gsap.set(".hero-logo", { yPercent: 110, opacity: 0 });
-            gsap.set(".hero-tagline", { autoAlpha: 0, y: 20 });
+            gsap.set(".hero-tagline", { autoAlpha: 0, y: 40 });
             gsap.set(".hero-cta", { autoAlpha: 0, xPercent: 120 });
             gsap.set(".hero-glass-word", {
               autoAlpha: 0,
@@ -96,27 +94,12 @@ export default function Home() {
 
             const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
 
-            tl.to(".hero-tag", {
-              autoAlpha: 1,
-              y: 0,
-              duration: 0.6,
-              ease: "power2.out",
+            tl.to(".hero-logo", {
+              yPercent: 0,
+              opacity: 1,
+              duration: 1.1,
+              ease: "power3.out",
             })
-              .to(
-                ".hero-logo",
-                {
-                  yPercent: 0,
-                  opacity: 1,
-                  duration: 1.1,
-                  ease: "power3.out",
-                },
-                "-=0.3",
-              )
-              .to(
-                ".hero-tagline",
-                { autoAlpha: 1, y: 0, duration: 0.7, ease: "power2.out" },
-                "-=0.7",
-              )
               .to(
                 ".hero-cta",
                 {
@@ -153,13 +136,27 @@ export default function Home() {
                 },
                 "-=0.1",
               )
-              .to(".hero-glass-word", {
-                autoAlpha: 1,
-                scale: 1,
-                "--hero-word-blur": "0px",
-                duration: 1.15,
-                ease: "power3.out",
-              });
+              .to(
+                ".hero-tagline",
+                {
+                  autoAlpha: 1,
+                  y: 0,
+                  duration: 1.1,
+                  ease: "power3.out",
+                },
+                "-=0.2",
+              )
+              .to(
+                ".hero-glass-word",
+                {
+                  autoAlpha: 1,
+                  scale: 1,
+                  "--hero-word-blur": "0px",
+                  duration: 1.15,
+                  ease: "power3.out",
+                },
+                "-=0.6",
+              );
           }
         }, containerRef);
       })
@@ -194,7 +191,6 @@ export default function Home() {
       <ServicesSection />
       <ClientsSection />
       <LogosSection />
-      <ProjectsSection />
       <ContactSection
         formRef={formRef}
         onSubmit={handleSubmit}

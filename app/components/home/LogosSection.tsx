@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 
 import {
   loadGsapWithScrollTrigger,
@@ -6,7 +6,7 @@ import {
   reportGsapLoadError,
 } from "./animations";
 
-const logoRows = [
+const clientLogoRows = [
   [
     { name: "OSDE", file: "osde.png" },
     { name: "Stella Artois", file: "stella.png" },
@@ -48,7 +48,7 @@ const agencyLogoRows = [
   ],
 ];
 
-const mobileLogoRows = [
+const mobileClientRows = [
   [
     { name: "OSDE", file: "osde.png" },
     { name: "Stella Artois", file: "stella.png" },
@@ -67,6 +67,47 @@ const mobileLogoRows = [
     { name: "Supervielle", file: "supervielle.png" },
     { name: "Zurich", file: "zurich.png" },
   ],
+];
+
+type LogoGroup = {
+  id: string;
+  copy: ReactNode;
+  desktopPath: string;
+  mobilePath: string;
+  desktopRows: { name: string; file: string }[][];
+  mobileRows: { name: string; file: string }[][];
+};
+
+const groups: LogoGroup[] = [
+  {
+    id: "agencies",
+    copy: (
+      <>
+        <h2 className="font-display text-[clamp(2.4rem,4vw,4rem)] leading-none  tracking-[-0.01em] uppercase text-rubric-black">
+          NUESTROS COLABORADORES TRABAJAN O TRABAJARON EN GRANDES AGENCIAS
+        </h2>
+      </>
+    ),
+    desktopPath: "/clientes/marcas",
+    mobilePath: "/clientes/marcas",
+    desktopRows: agencyLogoRows,
+    mobileRows: agencyLogoRows,
+  },
+  {
+    id: "clients",
+    copy: (
+      <h2 className="font-display text-[clamp(2.4rem,4vw,4rem)] leading-none tracking-[-0.01em] uppercase text-rubric-black">
+        EN PROYECTOS PARA
+        <br />
+        TODO TIPO DE CLIENTES
+        <span className="text-rubric-red">.</span>
+      </h2>
+    ),
+    desktopPath: "/images/cans/logos-empresas",
+    mobilePath: "/images/cans/logos-empresas",
+    desktopRows: clientLogoRows,
+    mobileRows: mobileClientRows,
+  },
 ];
 
 export function LogosSection() {
@@ -229,109 +270,40 @@ export function LogosSection() {
   return (
     <section
       ref={sectionRef}
-      className="logos-section flex flex-col bg-white py-20 max-[900px]:items-center max-[900px]:py-10"
+      className="logos-section flex flex-col bg-white py-24 max-[900px]:py-14"
       id="logos">
-      <div className="logos-desktop-groups logos-collage-desktop flex flex-col">
-        <div className="logos-section-row logos-section-row-clients flex flex-row items-start justify-between">
-          <div className="logos-collage-title flex h-full w-full px-20 max-[900px]:justify-center max-[900px]:px-6">
-            <h2 className="font-display text-[clamp(3rem,7vw,7rem)] leading-none">
-              EN PROYECTOS
-              <br />
-              PARA TODO TIPO
-              <br />
-              DE CLIENTES<span className="text-rubric-red">.</span>
-            </h2>
-          </div>
-          <div className="logos-collage flex flex-col items-center">
-            {logoRows.map((row, rowIndex) => (
-              <div
-                className="logos-collage-row flex justify-center"
-                key={rowIndex}>
-                {row.map((logo) => (
-                  <img
-                    alt={logo.name}
-                    className="logos-collage-image block shrink-0 object-contain"
-                    height={200}
-                    key={logo.file}
-                    loading="lazy"
-                    src={`/images/cans/logos-empresas/${logo.file}`}
-                    width={500}
-                  />
-                ))}
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="logos-section-row logos-section-row-agencies flex flex-row items-center justify-between">
-          <div className="logos-collage logos-collage-agencies flex flex-col items-center">
-            {agencyLogoRows.map((row, rowIndex) => (
-              <div
-                className="logos-collage-row flex justify-center"
-                key={rowIndex}>
-                {row.map((logo) => (
-                  <img
-                    alt={logo.name}
-                    className="logos-collage-image block shrink-0 object-contain"
-                    height={200}
-                    key={logo.file}
-                    loading="lazy"
-                    src={`/clientes/marcas/${logo.file}`}
-                    width={500}
-                  />
-                ))}
-              </div>
-            ))}
-          </div>
-          <div className="logos-agencies-copy">
-            <h2 className="font-display text-[clamp(3rem,7vw,7rem)] leading-none">
-              AGENCIAS
-              <span className="text-rubric-red">.</span>
-            </h2>
-            <p className="mt-6 ml-auto max-w-[350px] text-[0.95rem] leading-[1.7] font-light text-[rgba(10,10,10,0.5)]">
-              Los colaboradores de Rubric trabajan o trabajaron en cargos
-              directivos de estas agencias.
-            </p>
-          </div>
-        </div>
-      </div>
-      <div className="logos-mobile-sections">
-        {[
-          {
-            copy: (
-              <h2 className="font-display text-[clamp(2.4rem,13vw,4.75rem)] leading-none">
-                MARCAS
-                <br />
-                QUE NOS
-                <br />
-                ELIGEN<span className="text-rubric-red">.</span>
-              </h2>
-            ),
-            path: "/images/cans/logos-empresas",
-            rows: mobileLogoRows,
-          },
-          {
-            copy: (
-              <>
-                <h2 className="font-display text-[clamp(2.4rem,13vw,4.75rem)] leading-none">
-                  AGENCIAS<span className="text-rubric-red">.</span>
-                </h2>
-                <p className="mt-5 max-w-[500px] text-[0.95rem] leading-[1.7] font-light text-[rgba(10,10,10,0.5)]">
-                  Los colaboradores de Rubric trabajan o trabajaron en cargos
-                  directivos de estas agencias.
-                </p>
-              </>
-            ),
-            path: "/clientes/marcas",
-            rows: agencyLogoRows,
-          },
-        ].map((group, groupIndex) => (
-          <div className="logos-mobile-section" key={group.path}>
-            <div className="logos-mobile-copy px-6">{group.copy}</div>
+      <div className="logos-stacked-groups flex flex-col gap-24 max-[900px]:gap-16">
+        {groups.map((group) => (
+          <div
+            className="logos-stacked-group flex flex-col gap-10 max-[900px]:gap-7"
+            key={group.id}>
+            <div className="logos-stacked-title px-16 text-center max-[900px]:px-6">
+              {group.copy}
+            </div>
+            <div className="logos-stacked-collage flex flex-col items-center max-[900px]:hidden">
+              {group.desktopRows.map((row, rowIndex) => (
+                <div
+                  className="logos-collage-row flex justify-center"
+                  key={`${group.id}-row-${rowIndex}`}>
+                  {row.map((logo) => (
+                    <img
+                      alt={logo.name}
+                      className="logos-collage-image block shrink-0 object-contain"
+                      height={200}
+                      key={logo.file}
+                      loading="lazy"
+                      src={`${group.desktopPath}/${logo.file}`}
+                      width={500}
+                    />
+                  ))}
+                </div>
+              ))}
+            </div>
             <div className="logos-mobile-marquee">
-              {group.rows.map((row, rowIndex) => (
+              {group.mobileRows.map((row, rowIndex) => (
                 <div
                   className="logos-mobile-row"
-                  key={`${group.path}-${rowIndex}`}>
+                  key={`${group.id}-mobile-row-${rowIndex}`}>
                   <div className="logos-mobile-track">
                     {Array.from({ length: 4 }).flatMap((_, copyIndex) =>
                       row.map((logo) => (
@@ -339,9 +311,9 @@ export function LogosSection() {
                           alt={logo.name}
                           className="logos-mobile-image"
                           height={200}
-                          key={`${groupIndex}-${logo.file}-${copyIndex}`}
+                          key={`${group.id}-${logo.file}-${copyIndex}`}
                           loading="lazy"
-                          src={`${group.path}/${logo.file}`}
+                          src={`${group.mobilePath}/${logo.file}`}
                           width={500}
                         />
                       )),

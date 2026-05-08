@@ -10,89 +10,101 @@ import { services } from "./data";
 
 const canLayouts: Record<string, SprayCanLayout> = {
   publicidad: {
-    x: "6%",
-    y: "10%",
-    width: "33vw",
-    rotate: "-3deg",
-    zIndex: 6,
+    x: "2.5%",
+    y: "0%",
+    width: "25vw",
+    tabletX: "2.5%",
+    tabletWidth: "25vw",
+    rotate: "0deg",
+    zIndex: 1,
     light: 1,
-    lift: "-90px",
-    mobileX: "10%",
-    mobileY: "37%",
-    mobileWidth: "40vw",
-    mobileLift: "-55px",
+    lift: "0px",
+    mobileX: "0%",
+    mobileY: "0%",
+    mobileWidth: "100%",
+    mobileLift: "0px",
   },
   branding: {
-    x: "25%",
-    y: "8%",
-    width: "28vw",
-    rotate: "-1deg",
-    zIndex: 5,
-    light: 0.82,
-    lift: "-68px",
-    mobileX: "40%",
-    mobileY: "44%",
-    mobileWidth: "40vw",
-    mobileLift: "-42px",
+    x: "16.5%",
+    y: "0%",
+    width: "25vw",
+    tabletX: "16.5%",
+    tabletWidth: "25vw",
+    rotate: "0deg",
+    zIndex: 2,
+    light: 1,
+    lift: "0px",
+    mobileX: "0%",
+    mobileY: "0%",
+    mobileWidth: "100%",
+    mobileLift: "0px",
   },
   estrategia: {
-    x: "43%",
-    y: "14%",
-    width: "23vw",
-    rotate: "1deg",
-    zIndex: 4,
-    light: 0.65,
-    lift: "-48px",
-    mobileX: "70%",
-    mobileY: "38%",
-    mobileWidth: "36vw",
-    mobileLift: "-30px",
+    x: "30.5%",
+    y: "0%",
+    width: "25vw",
+    tabletX: "30.5%",
+    tabletWidth: "25vw",
+    rotate: "0deg",
+    zIndex: 3,
+    light: 1,
+    lift: "0px",
+    mobileX: "0%",
+    mobileY: "0%",
+    mobileWidth: "100%",
+    mobileLift: "0px",
   },
   diseno: {
-    x: "58%",
-    y: "14%",
-    width: "19vw",
-    rotate: "3deg",
-    zIndex: 3,
-    light: 0.5,
-    lift: "-32px",
-    mobileX: "-8%",
-    mobileY: "16%",
-    mobileWidth: "33vw",
-    mobileLift: "-20px",
+    x: "44.5%",
+    y: "0%",
+    width: "25vw",
+    tabletX: "44.5%",
+    tabletWidth: "25vw",
+    rotate: "0deg",
+    zIndex: 4,
+    light: 1,
+    lift: "0px",
+    mobileX: "0%",
+    mobileY: "0%",
+    mobileWidth: "100%",
+    mobileLift: "0px",
   },
   activaciones: {
-    x: "72%",
-    y: "15%",
-    width: "16vw",
-    rotate: "5deg",
-    zIndex: 2,
-    light: 0.38,
-    lift: "-18px",
-    mobileX: "30%",
-    mobileY: "11%",
-    mobileWidth: "30vw",
-    mobileLift: "-12px",
+    x: "58.5%",
+    y: "0%",
+    width: "25vw",
+    tabletX: "58.5%",
+    tabletWidth: "25vw",
+    rotate: "0deg",
+    zIndex: 5,
+    light: 1,
+    lift: "0px",
+    mobileX: "0%",
+    mobileY: "0%",
+    mobileWidth: "100%",
+    mobileLift: "0px",
   },
   contenido: {
-    x: "85%",
-    y: "16%",
-    width: "13vw",
-    rotate: "6deg",
-    zIndex: 1,
-    light: 0.28,
-    lift: "-8px",
-    mobileX: "68%",
-    mobileY: "9%",
-    mobileWidth: "21vw",
-    mobileLift: "-5px",
+    x: "72.5%",
+    y: "0%",
+    width: "25vw",
+    tabletX: "72.5%",
+    tabletWidth: "25vw",
+    rotate: "0deg",
+    zIndex: 6,
+    light: 1,
+    lift: "0px",
+    mobileX: "0%",
+    mobileY: "0%",
+    mobileWidth: "100%",
+    mobileLift: "0px",
   },
 };
 
 export function SprayCanSection() {
   const sectionRef = useRef<HTMLElement>(null);
+  const carouselTrackRef = useRef<HTMLDivElement>(null);
   const [activeSlug, setActiveSlug] = useState<string | null>(null);
-  const activeService = services.find((service) => service.slug === activeSlug);
 
   useEffect(() => {
     let cancelled = false;
@@ -139,15 +151,58 @@ export function SprayCanSection() {
     };
   }, []);
 
+  useEffect(() => {
+    const track = carouselTrackRef.current;
+    if (!track || typeof window === "undefined") return;
+
+    const mobileQuery = window.matchMedia("(max-width: 768px)");
+    let swipeTimeout = 0;
+
+    const setActiveFromScroll = () => {
+      if (!mobileQuery.matches) return;
+
+      const index = Math.round(
+        track.scrollLeft / Math.max(track.clientWidth, 1),
+      );
+      const service =
+        services[Math.min(Math.max(index, 0), services.length - 1)];
+      setActiveSlug(service?.slug ?? null);
+    };
+
+    const handleScroll = () => {
+      window.clearTimeout(swipeTimeout);
+      swipeTimeout = window.setTimeout(setActiveFromScroll, 90);
+    };
+
+    const handleQueryChange = () => {
+      if (mobileQuery.matches) {
+        setActiveFromScroll();
+        return;
+      }
+
+      setActiveSlug(null);
+    };
+
+    handleQueryChange();
+    track.addEventListener("scroll", handleScroll, { passive: true });
+    mobileQuery.addEventListener("change", handleQueryChange);
+
+    return () => {
+      track.removeEventListener("scroll", handleScroll);
+      mobileQuery.removeEventListener("change", handleQueryChange);
+      window.clearTimeout(swipeTimeout);
+    };
+  }, []);
+
   return (
     <section
       id="servicios"
       ref={sectionRef}
-      className="bg-rubric-black px-16 pt-32 pb-0 max-[900px]:px-8 max-[900px]:pt-20">
+      className="bg-rubric-black px-16 pt-32 pb-0 max-[900px]:px-8 max-[900px]:pt-20 max-[768px]:flex max-[768px]:min-h-svh max-[768px]:flex-col">
       <div
         data-services-header
-        className="relative z-10 mb-8 flex items-end justify-between gap-8 max-[900px]:mb-4 max-[900px]:flex-col max-[900px]:items-start">
-        <h2 className="font-display text-[clamp(3rem,7vw,7rem)] leading-none">
+        className="relative z-0 mb-8 flex items-end justify-between gap-8 max-[900px]:mb-4 max-[900px]:flex-col max-[900px]:items-start max-[768px]:mb-16">
+        <h2 className="font-display text-[clamp(3rem,7vw,7rem)] leading-none uppercase font-semibold">
           Lo que hacemos.
         </h2>
       </div>
@@ -163,16 +218,29 @@ export function SprayCanSection() {
             layout={canLayouts[service.slug]}
             isActive={activeSlug === service.slug}
             isDimmed={activeSlug !== null && activeSlug !== service.slug}
+            variant="stage"
             onActivate={setActiveSlug}
             onDeactivate={() => setActiveSlug(null)}
           />
         ))}
+      </div>
 
-        <div
-          className="spray-service-copy"
-          data-visible={activeService ? "true" : undefined}
-          aria-live="polite">
-          {activeService ? <p>{activeService.description}</p> : null}
+      <div className="spray-carousel">
+        <div ref={carouselTrackRef} className="spray-carousel-track">
+          {services.map((service) => (
+            <div key={service.slug} className="spray-carousel-slide">
+              <SprayCanCard
+                service={service}
+                layout={canLayouts[service.slug]}
+                isActive={activeSlug === service.slug}
+                isDimmed={false}
+                variant="carousel"
+                interactive={false}
+                onActivate={setActiveSlug}
+                onDeactivate={() => setActiveSlug(null)}
+              />
+            </div>
+          ))}
         </div>
       </div>
     </section>

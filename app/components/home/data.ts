@@ -23,7 +23,7 @@ export const stats: Stat[] = [
   { value: 100, label: "Talento senior para cada proyecto", suffix: "%" },
   {
     value: 1,
-    label: "Propósito: ayudar a las marcas a encontrar su marca",
+    label: "Propósito: ayudar a las empresas a dejar una marca",
     padStart: 2,
   },
 ];
@@ -112,7 +112,7 @@ export const cases = [
   },
   {
     number: "003",
-    name: "CACIQUE",
+    name: ["ARTRO", "MEDICINA DEPORTIVA"],
     type: "ATENCIÓN INTEGRAL",
     initials: "CA",
     variant: "light",
@@ -121,22 +121,22 @@ export const cases = [
   },
   {
     number: "004",
-    name: "NÜPARK",
-    type: "NAMING Y BRANDBOOK",
+    name: ["CACIQUE", "DESARROLLOS INMOBILIARIOS"],
+    type: "RE BRANDING Y ARQUITECTURA DE MARCAS",
     initials: "NP",
     variant: "light",
   },
   {
     number: "005",
-    name: "GRUPO BOLDT ",
-    type: "RE BRANDING Y ARQUITECTURA DE MARCAS",
+    name: ["NÜPARK - NÜKARTS - NÜGAMES.", "ENTRETENIMIENTO"],
+    type: "NAMING Y BRANDBOOK",
     initials: "GB",
     variant: "dark",
     coverImage: "/clientes/grupoboldt.png",
   },
   {
     number: "006",
-    name: "MEDIALAUGH",
+    name: ["MEDIALAUGH", "AGENCIA DE MEDIOS"],
     type: "RE BRANDING ESTRATEGICO Y ASSETS DIGITALES",
     initials: "ML",
     variant: "accent",
