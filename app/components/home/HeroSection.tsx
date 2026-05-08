@@ -84,11 +84,15 @@ export function HeroSection() {
       ref={sectionRef}
       className="relative flex min-h-screen flex-col justify-end overflow-hidden px-16 pt-32 pb-20 max-[900px]:px-8 max-[900px]:pt-28 max-[900px]:pb-16">
       <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
-        <img
-          alt=""
+        <video
           aria-hidden="true"
           className="absolute inset-0 h-full w-full object-cover opacity-55"
-          src="/banner.webp"
+          src="/recorte%201.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
         />
       </div>
       <div className="pointer-events-none absolute inset-0 z-1 bg-rubric-black/55" />
