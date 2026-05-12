@@ -102,8 +102,10 @@ export function HeroSection() {
         data-text="RUBRIC"></div>
       <div className="pointer-events-none absolute inset-x-16 top-1/2 z-20 -translate-y-1/2 max-[900px]:inset-x-8">
         <p className="hero-tagline pointer-events-auto max-w-[1400px] font-display text-[clamp(1.6rem,4vw,4rem)] leading-[1.05] font-bold text-rubric-white italic uppercase">
-          Todo lo que hacen las marcas comunica.
-          <br />Y si comunica, nos gusta hacerlo.
+          Todo lo que hacen las
+          <br />marcas comunica.
+          <br />Y si comunica, nos gusta
+          <br />hacerlo.
         </p>
       </div>
       <h1 className="relative z-10 mb-10 leading-none">

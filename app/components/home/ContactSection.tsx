@@ -13,9 +13,11 @@ import {
 } from "./animations";
 import { contactItems } from "./data";
 
+type FormStatus = "idle" | "sending" | "success" | "error";
+
 type ContactSectionProps = {
   formRef: RefObject<HTMLFormElement | null>;
-  submitted: boolean;
+  status: FormStatus;
   onSubmit: (event: FormEvent<HTMLFormElement>) => void;
 };
 
@@ -32,7 +34,7 @@ function FieldLabel({ children }: { children: ReactNode }) {
 
 export function ContactSection({
   formRef,
-  submitted,
+  status,
   onSubmit,
 }: ContactSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
@@ -145,6 +147,7 @@ export function ContactSection({
               <FieldLabel>Nombre</FieldLabel>
               <input
                 className={inputClass}
+                name="name"
                 placeholder="Tu nombre"
                 required
                 type="text"
@@ -154,6 +157,7 @@ export function ContactSection({
               <FieldLabel>Empresa</FieldLabel>
               <input
                 className={inputClass}
+                name="company"
                 placeholder="Tu empresa"
                 type="text"
               />
@@ -163,6 +167,7 @@ export function ContactSection({
             <FieldLabel>Email</FieldLabel>
             <input
               className={inputClass}
+              name="email"
               placeholder="tu@email.com"
               required
               type="email"
@@ -170,7 +175,7 @@ export function ContactSection({
           </div>
           <div className="flex flex-col gap-2">
             <FieldLabel>¿En qué podemos ayudarte?</FieldLabel>
-            <select className={inputClass}>
+            <select className={inputClass} name="service">
               <option className="bg-rubric-black" value="">
                 Seleccioná un servicio
               </option>
@@ -185,22 +190,48 @@ export function ContactSection({
               </option>
             </select>
           </div>
+          {status === "success" ? (
+            <div
+              aria-live="polite"
+              className="border border-rubric-red bg-[rgba(200,52,26,0.08)] px-4 py-3 text-[0.85rem] font-light tracking-[0.02em] text-rubric-white">
+              <span className="font-medium tracking-[0.15em] text-rubric-red uppercase">
+                Mensaje enviado.
+              </span>{" "}
+              Gracias — te respondemos en breve.
+            </div>
+          ) : null}
+          {status === "error" ? (
+            <div
+              aria-live="polite"
+              className="border border-rubric-red bg-[rgba(200,52,26,0.08)] px-4 py-3 text-[0.85rem] font-light tracking-[0.02em] text-rubric-white">
+              <span className="font-medium tracking-[0.15em] text-rubric-red uppercase">
+                No se pudo enviar.
+              </span>{" "}
+              Probá de nuevo en unos minutos o escribinos a agencia@rubric.com.ar.
+            </div>
+          ) : null}
           <div className="flex flex-col gap-2">
             <FieldLabel>Mensaje</FieldLabel>
             <textarea
               className={inputClass}
+              name="message"
               placeholder="Contanos tu proyecto..."
               rows={4}
             />
           </div>
           <button
             className={`self-start rounded-none border-0 px-10 py-[1.1rem] font-sans text-[0.85rem] font-medium tracking-[0.15em] text-rubric-white uppercase transition-colors duration-200 ${
-              submitted
+              status === "success"
                 ? "bg-[#2c5f2d]"
                 : "bg-rubric-red hover:bg-rubric-red-dark"
-            }`}
+            } ${status === "sending" ? "cursor-wait opacity-70" : ""}`}
+            disabled={status === "sending"}
             type="submit">
-            {submitted ? "Mensaje enviado ✓" : "Enviar mensaje →"}
+            {status === "sending"
+              ? "Enviando..."
+              : status === "success"
+                ? "Mensaje enviado ✓"
+                : "Enviar mensaje →"}
           </button>
         </form>
       </div>

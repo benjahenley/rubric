@@ -7,7 +7,7 @@ import {
 } from "./animations";
 import { cases, services } from "./data";
 
-const caseCardAspectRatio = "85.82 / 110";
+const caseCardAspectRatio = "3 / 2";
 
 function renderCaseName(name: string | string[]) {
   if (typeof name === "string") return name;
@@ -141,22 +141,22 @@ export function ClientsSection() {
     <section
       id="clientes"
       ref={sectionRef}
-      className="bg-rubric-white px-16 py-32 text-rubric-black max-[900px]:px-8 max-[900px]:py-20">
-      <div className="mb-16">
-        <p className="mb-6 text-[0.72rem] font-medium tracking-[0.22em] uppercase opacity-50">
+      className="bg-rubric-white px-16 py-20 text-rubric-black max-[900px]:px-8 max-[900px]:py-16">
+      <div className="mb-10">
+        <p className="mb-4 text-[0.72rem] font-medium tracking-[0.22em] uppercase opacity-50">
           Casos & Clientes
         </p>
-        <h2 className="mb-4 font-display font-semibold text-[clamp(1.6rem,4vw,4rem)] leading-none uppercase">
+        <h2 className="mb-3 font-display font-semibold text-[clamp(1.4rem,3.2vw,3rem)] leading-none uppercase">
           Marcas que
           <br />
           trabajaron con nosotros.
         </h2>
-        <p className="max-w-[500px] text-[0.95rem] leading-[1.7] font-light text-[rgba(10,10,10,0.5)]">
+        <p className="max-w-[500px] text-[0.9rem] leading-[1.6] font-light text-[rgba(10,10,10,0.5)]">
           Trabajamos con marcas que necesitaban algo más que una agencia.
           Necesitaban un socio creativo de verdad.
         </p>
       </div>
-      <div className="mx-auto grid max-w-[1300px] grid-cols-3 gap-[2px] max-[900px]:max-w-[740px] max-[900px]:grid-cols-2 max-[640px]:max-w-[360px] max-[640px]:grid-cols-1">
+      <div className="mx-auto grid max-w-[1100px] grid-cols-3 gap-[2px] max-[900px]:max-w-[640px] max-[900px]:grid-cols-2 max-[640px]:max-w-[320px] max-[640px]:grid-cols-1">
         {cases.map((caseItem, index) => {
           const canColor = services[index % services.length].color;
           const faceStyle = {
@@ -180,33 +180,33 @@ export function ClientsSection() {
                 className="case-card-inner relative h-full w-full transition-transform duration-700"
                 style={{ transformStyle: "preserve-3d" }}>
                 <div
-                  className="absolute inset-0 flex flex-col justify-between overflow-hidden px-10 py-14 max-[700px]:px-6 max-[700px]:py-9"
+                  className="absolute inset-0 flex flex-col justify-between overflow-hidden px-7 py-8 max-[700px]:px-5 max-[700px]:py-6"
                   style={faceStyle}>
-                  <div className="font-display text-[0.85rem] tracking-[0.1em] opacity-70">
+                  <div className="font-display text-[0.75rem] tracking-[0.1em] opacity-70">
                     {caseItem.number}
                   </div>
                   <div>
-                    <div className="max-w-[92%] font-display text-[clamp(1.25rem,1.8vw,2rem)] leading-tight font-semibold tracking-[-0.01em] wrap-break-word uppercase">
+                    <div className="max-w-[92%] font-display text-[clamp(1rem,1.4vw,1.5rem)] leading-tight font-semibold tracking-[-0.01em] wrap-break-word uppercase">
                       {renderCaseName(caseItem.name)}
                     </div>
                   </div>
-                  <div className="pointer-events-none absolute right-[-1rem] bottom-[-1rem] select-none font-display text-[8rem] leading-none font-bold opacity-[0.06]">
+                  <div className="pointer-events-none absolute -right-3 -bottom-3 select-none font-display text-[5.5rem] leading-none font-bold opacity-[0.06]">
                     {caseItem.initials}
                   </div>
                 </div>
 
                 <div
-                  className="absolute inset-0 flex flex-col justify-between overflow-hidden px-10 py-14 max-[700px]:px-6 max-[700px]:py-9"
+                  className="absolute inset-0 flex flex-col justify-between overflow-hidden px-7 py-8 max-[700px]:px-5 max-[700px]:py-6"
                   style={backStyle}>
-                  <div className="font-display text-[0.85rem] tracking-[0.1em] opacity-70">
+                  <div className="font-display text-[0.75rem] tracking-[0.1em] opacity-70">
                     {caseItem.number}
                   </div>
-                  <div className="flex min-h-[55%] items-center border-t border-current/20 pt-8">
-                    <div className="max-w-[92%] font-sans text-[clamp(1.15rem,1.7vw,1.6rem)] leading-[1.25] font-light tracking-[0.01em] uppercase">
+                  <div className="flex min-h-[50%] items-center border-t border-current/20 pt-5">
+                    <div className="max-w-[92%] font-sans text-[clamp(0.95rem,1.3vw,1.25rem)] leading-tight font-light tracking-[0.01em] uppercase">
                       {caseItem.type}
                     </div>
                   </div>
-                  <div className="text-[0.72rem] font-medium tracking-[0.22em] uppercase opacity-60">
+                  <div className="text-[0.66rem] font-medium tracking-[0.22em] uppercase opacity-60">
                     Proyecto
                   </div>
                 </div>
