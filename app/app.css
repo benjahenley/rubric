@@ -105,7 +105,7 @@
 .spray-stage {
   position: relative;
   z-index: 20;
-  min-height: clamp(560px, 58vw, 780px);
+  min-height: clamp(420px, min(58vw, 70vh), 720px);
   margin-top: -3.5rem;
   margin-inline: -4rem;
   padding-top: 3.5rem;
@@ -113,10 +113,6 @@
   overflow-clip-margin: 5rem;
   perspective: 1200px;
   perspective-origin: 42% 46%;
-}
-
-.spray-carousel {
-  display: none;
 }
 
 .spray-stage::before {
@@ -134,7 +130,7 @@
   bottom: 0;
   left: var(--can-x);
   margin-bottom: -2.5rem;
-  width: clamp(9rem, var(--can-width), 31rem);
+  width: clamp(8rem, min(var(--can-width), 38vh), 22rem);
   aspect-ratio: 3 / 5;
   border: 0;
   padding: 0;
@@ -152,27 +148,18 @@
   will-change: transform, opacity, filter;
 }
 
-.spray-can[data-layout="carousel"] {
-  position: relative;
-  top: auto;
-  left: auto;
-  width: min(100%, 22rem);
-  margin-block: 0;
-  margin-inline: auto;
-}
-
 .spray-can::after {
   position: absolute;
-  right: 22%;
-  bottom: 1%;
-  left: 2%;
-  height: 9%;
+  right: 40%;
+  bottom: 3%;
+  left: -40%;
+  height: 10%;
   border-radius: 50%;
-  background: rgba(0, 0, 0, 0.55);
+  background: rgba(0, 0, 0, 0.65);
   content: "";
-  filter: blur(20px);
-  opacity: 0.28;
-  transform: translate3d(-10%, 10px, -70px) rotate(-6deg);
+  filter: blur(22px);
+  opacity: 0.55;
+  transform: translate3d(-6%, -10px, -70px) rotate(-9deg);
   transition: opacity 260ms ease;
 }
 
@@ -256,7 +243,7 @@
 }
 
 .spray-can[data-active="true"]::after {
-  opacity: 0.42;
+  opacity: 0.7;
 }
 
 .spray-can[data-dimmed="true"] {
@@ -312,62 +299,52 @@
 
 @media (max-width: 768px) {
   .spray-stage {
-    display: none;
-  }
-
-  .spray-carousel {
-    display: block;
     flex: 1 1 auto;
+    min-height: clamp(20rem, 56svh, 34rem);
+    margin-top: 0;
     margin-inline: -2rem;
-    min-height: 0;
-    overflow: hidden;
+    padding-top: 0;
+    overflow: clip;
+    perspective-origin: 50% 100%;
   }
 
-  .spray-carousel-track {
-    display: flex;
-    align-items: flex-end;
-    gap: 0;
-    height: 100%;
-    overflow-x: auto;
-    padding-inline: 0;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
+  .spray-can {
+    left: var(--can-mobile-x);
+    width: clamp(7rem, var(--can-mobile-width), 10rem);
+    filter: brightness(1) saturate(1);
+    transform: translate3d(0, 0, 0) rotate(0deg);
+    transform-origin: 50% 100%;
   }
 
-  .spray-carousel-track::-webkit-scrollbar {
-    display: none;
-  }
-
-  .spray-carousel-slide {
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    flex: 0 0 100%;
-    min-width: 100%;
-    min-height: 100%;
-    overflow: hidden;
-    scroll-snap-align: center;
-    scroll-snap-stop: always;
-    padding-inline: 1.5rem;
-  }
-
-  .spray-can[data-layout="carousel"] {
-    align-self: flex-end;
-    width: min(75vw, 36vh, 20rem);
-    aspect-ratio: 3 / 5;
-    cursor: default;
+  .spray-can[data-active="true"],
+  .spray-can[data-dimmed="true"] {
+    opacity: 1;
     filter: brightness(1) saturate(1);
     transform: translate3d(0, 0, 0) rotate(0deg);
   }
 
-  .spray-can[data-layout="carousel"]::after {
-    display: none;
+  .spray-can:nth-of-type(1) {
+    z-index: 1 !important;
   }
 
-  .spray-can[data-layout="carousel"][data-active="true"] {
-    filter: brightness(1) saturate(1);
-    transform: translate3d(0, 0, 0) rotate(0deg);
+  .spray-can:nth-of-type(2) {
+    z-index: 2 !important;
+  }
+
+  .spray-can:nth-of-type(3) {
+    z-index: 3 !important;
+  }
+
+  .spray-can:nth-of-type(4) {
+    z-index: 4 !important;
+  }
+
+  .spray-can:nth-of-type(5) {
+    z-index: 5 !important;
+  }
+
+  .spray-can:nth-of-type(6) {
+    z-index: 6 !important;
   }
 }
 

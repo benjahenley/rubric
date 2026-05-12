@@ -83,8 +83,10 @@ const groups: LogoGroup[] = [
     id: "agencies",
     copy: (
       <>
-        <h2 className="font-display text-[clamp(2.4rem,4vw,4rem)] leading-none  tracking-[-0.01em] uppercase text-rubric-black">
-          NUESTROS COLABORADORES TRABAJAN O TRABAJARON EN GRANDES AGENCIAS
+        <h2 className="font-display text-[clamp(1.3rem,3vw,3rem)] leading-tight  tracking-[-0.01em] uppercase text-rubric-black">
+          NUESTROS COLABORADORES TRABAJAN
+          <br />
+          O TRABAJARON EN GRANDES AGENCIAS
         </h2>
       </>
     ),
@@ -96,7 +98,7 @@ const groups: LogoGroup[] = [
   {
     id: "clients",
     copy: (
-      <h2 className="font-display text-[clamp(2.4rem,4vw,4rem)] leading-none tracking-[-0.01em] uppercase text-rubric-black">
+      <h2 className="font-display text-[clamp(1.3rem,3vw,3rem)] leading-tight tracking-[-0.01em] uppercase text-rubric-black">
         EN PROYECTOS PARA
         <br />
         TODO TIPO DE CLIENTES

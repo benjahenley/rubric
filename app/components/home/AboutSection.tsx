@@ -118,7 +118,7 @@ export function AboutSection() {
         <p className="mb-6 text-[0.72rem] font-medium tracking-[0.22em] uppercase opacity-50">
           Quiénes somos
         </p>
-        <h2 className="mb-8 font-display font-semibold text-[clamp(3rem,6vw,6rem)] leading-none tracking-[0.01em] uppercase">
+        <h2 className="mb-8 font-display font-semibold text-[clamp(1.6rem,4vw,4rem)] leading-none tracking-[0.01em] uppercase">
           Talento Senior
           <br />
           al <em className="not-italic text-rubric-red">servicio</em>
@@ -138,7 +138,7 @@ export function AboutSection() {
             data-reveal
             key={stat.label}>
             <div
-              className="mb-1 font-display text-[4rem] leading-none text-rubric-red"
+              className="mb-1 font-display text-[clamp(1.6rem,4vw,4rem)] leading-none text-rubric-red"
               data-stat-final={formatStatValue(stat.value, stat)}
               data-stat-number
               data-stat-pad-start={stat.padStart ?? 0}

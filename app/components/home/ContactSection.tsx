@@ -50,7 +50,7 @@ export function ContactSection({
 
         ctx = gsap.context(() => {
           gsap.from(
-            section.querySelectorAll(":scope > div:first-of-type > *"),
+            section.querySelectorAll("[data-contact-header] > *"),
             {
               y: 60,
               autoAlpha: 0,
@@ -99,19 +99,20 @@ export function ContactSection({
     <section
       id="contacto"
       ref={sectionRef}
-      className="flex min-h-screen flex-col justify-between bg-rubric-black px-16 py-32 max-[900px]:px-8 max-[900px]:py-20">
-      <div className="mb-24">
-        <p className="mb-6 text-[0.72rem] font-medium tracking-[0.22em] uppercase opacity-50">
-          Contacto
-        </p>
-        <h2 className="font-display font-semibold text-[clamp(4rem,12vw,13rem)] leading-[0.9] uppercase">
-          DEJEMOS
-          <br />
-          UNA <span className="text-rubric-red">marca.</span>
-        </h2>
-      </div>
-      <div className="grid grid-cols-2 items-end gap-16 max-[900px]:grid-cols-1">
-        <div className="flex flex-col gap-10">
+      className="flex min-h-screen flex-col justify-center bg-rubric-black px-16 py-32 max-[900px]:px-8 max-[900px]:py-20">
+      <div className="grid grid-cols-2 items-start gap-16 max-[900px]:grid-cols-1">
+        <div className="flex flex-col gap-16">
+          <div data-contact-header>
+            <p className="mb-6 text-[0.72rem] font-medium tracking-[0.22em] uppercase opacity-50">
+              Contacto
+            </p>
+            <h2 className="font-display font-semibold text-[clamp(1.6rem,4vw,4rem)] leading-[0.9] uppercase">
+              DEJEMOS
+              <br />
+              UNA <span className="text-rubric-red">marca.</span>
+            </h2>
+          </div>
+          <div className="flex flex-col gap-10">
           {contactItems.map((item) => (
             <div data-reveal key={item.label}>
               <div className="mb-2 text-[0.7rem] font-medium tracking-[0.2em] text-rubric-red uppercase">
@@ -136,6 +137,7 @@ export function ContactSection({
               </div>
             </div>
           ))}
+          </div>
         </div>
         <form className="flex flex-col gap-6" onSubmit={onSubmit} ref={formRef}>
           <div className="grid grid-cols-2 gap-4">

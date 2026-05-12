@@ -21,7 +21,7 @@ const canLayouts: Record<string, SprayCanLayout> = {
     lift: "0px",
     mobileX: "0%",
     mobileY: "0%",
-    mobileWidth: "100%",
+    mobileWidth: "34vw",
     mobileLift: "0px",
   },
   branding: {
@@ -34,9 +34,9 @@ const canLayouts: Record<string, SprayCanLayout> = {
     zIndex: 2,
     light: 1,
     lift: "0px",
-    mobileX: "0%",
+    mobileX: "12.5%",
     mobileY: "0%",
-    mobileWidth: "100%",
+    mobileWidth: "34vw",
     mobileLift: "0px",
   },
   estrategia: {
@@ -49,9 +49,9 @@ const canLayouts: Record<string, SprayCanLayout> = {
     zIndex: 3,
     light: 1,
     lift: "0px",
-    mobileX: "0%",
+    mobileX: "25%",
     mobileY: "0%",
-    mobileWidth: "100%",
+    mobileWidth: "34vw",
     mobileLift: "0px",
   },
   diseno: {
@@ -64,9 +64,9 @@ const canLayouts: Record<string, SprayCanLayout> = {
     zIndex: 4,
     light: 1,
     lift: "0px",
-    mobileX: "0%",
+    mobileX: "37.5%",
     mobileY: "0%",
-    mobileWidth: "100%",
+    mobileWidth: "34vw",
     mobileLift: "0px",
   },
   activaciones: {
@@ -79,9 +79,9 @@ const canLayouts: Record<string, SprayCanLayout> = {
     zIndex: 5,
     light: 1,
     lift: "0px",
-    mobileX: "0%",
+    mobileX: "50%",
     mobileY: "0%",
-    mobileWidth: "100%",
+    mobileWidth: "34vw",
     mobileLift: "0px",
   },
   contenido: {
@@ -94,16 +94,15 @@ const canLayouts: Record<string, SprayCanLayout> = {
     zIndex: 6,
     light: 1,
     lift: "0px",
-    mobileX: "0%",
+    mobileX: "62.5%",
     mobileY: "0%",
-    mobileWidth: "100%",
+    mobileWidth: "34vw",
     mobileLift: "0px",
   },
 };
 
 export function SprayCanSection() {
   const sectionRef = useRef<HTMLElement>(null);
-  const carouselTrackRef = useRef<HTMLDivElement>(null);
   const [activeSlug, setActiveSlug] = useState<string | null>(null);
 
   useEffect(() => {
@@ -151,49 +150,6 @@ export function SprayCanSection() {
     };
   }, []);
 
-  useEffect(() => {
-    const track = carouselTrackRef.current;
-    if (!track || typeof window === "undefined") return;
-
-    const mobileQuery = window.matchMedia("(max-width: 768px)");
-    let swipeTimeout = 0;
-
-    const setActiveFromScroll = () => {
-      if (!mobileQuery.matches) return;
-
-      const index = Math.round(
-        track.scrollLeft / Math.max(track.clientWidth, 1),
-      );
-      const service =
-        services[Math.min(Math.max(index, 0), services.length - 1)];
-      setActiveSlug(service?.slug ?? null);
-    };
-
-    const handleScroll = () => {
-      window.clearTimeout(swipeTimeout);
-      swipeTimeout = window.setTimeout(setActiveFromScroll, 90);
-    };
-
-    const handleQueryChange = () => {
-      if (mobileQuery.matches) {
-        setActiveFromScroll();
-        return;
-      }
-
-      setActiveSlug(null);
-    };
-
-    handleQueryChange();
-    track.addEventListener("scroll", handleScroll, { passive: true });
-    mobileQuery.addEventListener("change", handleQueryChange);
-
-    return () => {
-      track.removeEventListener("scroll", handleScroll);
-      mobileQuery.removeEventListener("change", handleQueryChange);
-      window.clearTimeout(swipeTimeout);
-    };
-  }, []);
-
   return (
     <section
       id="servicios"
@@ -202,7 +158,7 @@ export function SprayCanSection() {
       <div
         data-services-header
         className="relative z-0 mb-8 flex items-end justify-between gap-8 max-[900px]:mb-4 max-[900px]:flex-col max-[900px]:items-start max-[768px]:mb-16">
-        <h2 className="font-display text-[clamp(3rem,7vw,7rem)] leading-none uppercase font-semibold">
+        <h2 className="font-display text-[clamp(1.6rem,4vw,4rem)] leading-none uppercase font-semibold">
           Lo que hacemos.
         </h2>
       </div>
@@ -218,30 +174,10 @@ export function SprayCanSection() {
             layout={canLayouts[service.slug]}
             isActive={activeSlug === service.slug}
             isDimmed={activeSlug !== null && activeSlug !== service.slug}
-            variant="stage"
             onActivate={setActiveSlug}
             onDeactivate={() => setActiveSlug(null)}
           />
         ))}
-      </div>
-
-      <div className="spray-carousel">
-        <div ref={carouselTrackRef} className="spray-carousel-track">
-          {services.map((service) => (
-            <div key={service.slug} className="spray-carousel-slide">
-              <SprayCanCard
-                service={service}
-                layout={canLayouts[service.slug]}
-                isActive={activeSlug === service.slug}
-                isDimmed={false}
-                variant="carousel"
-                interactive={false}
-                onActivate={setActiveSlug}
-                onDeactivate={() => setActiveSlug(null)}
-              />
-            </div>
-          ))}
-        </div>
       </div>
     </section>
   );

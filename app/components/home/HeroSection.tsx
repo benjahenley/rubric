@@ -101,7 +101,7 @@ export function HeroSection() {
         className="hero-glass-word pointer-events-none absolute top-1/2 left-1/2 z-10 -translate-x-1/2 -translate-y-1/2 select-none whitespace-nowrap font-display text-[clamp(14rem,28vw,30rem)] tracking-[-0.02em] text-transparent [-webkit-text-stroke:1px_rgba(245,240,232,0.1)]"
         data-text="RUBRIC"></div>
       <div className="pointer-events-none absolute inset-x-16 top-1/2 z-20 -translate-y-1/2 max-[900px]:inset-x-8">
-        <p className="hero-tagline pointer-events-auto max-w-[1400px] font-display text-[clamp(2.2rem,5.5vw,5.5rem)] leading-[1.05] font-bold text-rubric-white italic uppercase">
+        <p className="hero-tagline pointer-events-auto max-w-[1400px] font-display text-[clamp(1.6rem,4vw,4rem)] leading-[1.05] font-bold text-rubric-white italic uppercase">
           Todo lo que hacen las marcas comunica.
           <br />Y si comunica, nos gusta hacerlo.
         </p>

@@ -38,8 +38,6 @@ type Props = {
   layout: SprayCanLayout;
   isActive: boolean;
   isDimmed: boolean;
-  variant?: "stage" | "carousel";
-  interactive?: boolean;
   onActivate: (slug: string) => void;
   onDeactivate: () => void;
 };
@@ -49,8 +47,6 @@ export function SprayCanCard({
   layout,
   isActive,
   isDimmed,
-  variant = "stage",
-  interactive = true,
   onActivate,
   onDeactivate,
 }: Props) {
@@ -77,16 +73,15 @@ export function SprayCanCard({
       type="button"
       className="spray-can group mt-10"
       data-active={isActive ? "true" : undefined}
-      data-layout={variant}
       data-dimmed={isDimmed ? "true" : undefined}
       data-can-card
       style={style}
       aria-label={`Ver servicio ${service.name}`}
-      onBlur={interactive ? onDeactivate : undefined}
-      onClick={interactive ? () => onActivate(service.slug) : undefined}
-      onFocus={interactive ? () => onActivate(service.slug) : undefined}
-      onPointerEnter={interactive ? () => onActivate(service.slug) : undefined}
-      onPointerLeave={interactive ? onDeactivate : undefined}>
+      onBlur={onDeactivate}
+      onClick={() => onActivate(service.slug)}
+      onFocus={() => onActivate(service.slug)}
+      onPointerEnter={() => onActivate(service.slug)}
+      onPointerLeave={onDeactivate}>
       {!imageFailed ? (
         <img
           src={service.canImage}

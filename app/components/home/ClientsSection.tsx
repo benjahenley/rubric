@@ -7,7 +7,7 @@ import {
 } from "./animations";
 import { cases, services } from "./data";
 
-const caseCardAspectRatio = "85.82 / 141.73";
+const caseCardAspectRatio = "85.82 / 110";
 
 function renderCaseName(name: string | string[]) {
   if (typeof name === "string") return name;
@@ -146,7 +146,7 @@ export function ClientsSection() {
         <p className="mb-6 text-[0.72rem] font-medium tracking-[0.22em] uppercase opacity-50">
           Casos & Clientes
         </p>
-        <h2 className="mb-4 font-display font-semibold text-[clamp(3rem,7vw,7rem)] leading-none uppercase">
+        <h2 className="mb-4 font-display font-semibold text-[clamp(1.6rem,4vw,4rem)] leading-none uppercase">
           Marcas que
           <br />
           trabajaron con nosotros.
@@ -186,7 +186,7 @@ export function ClientsSection() {
                     {caseItem.number}
                   </div>
                   <div>
-                    <div className="max-w-[92%] font-display text-[2.4rem] leading-[1.05] font-semibold tracking-[-0.01em] uppercase max-[700px]:text-[1.85rem]">
+                    <div className="max-w-[92%] font-display text-[clamp(1.25rem,1.8vw,2rem)] leading-tight font-semibold tracking-[-0.01em] wrap-break-word uppercase">
                       {renderCaseName(caseItem.name)}
                     </div>
                   </div>
