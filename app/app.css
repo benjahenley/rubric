@@ -299,57 +299,61 @@
 
 @media (max-width: 768px) {
   .spray-stage {
-    flex: 1 1 auto;
-    min-height: clamp(20rem, 56svh, 34rem);
+    flex: none;
+    min-height: 0;
+    height: clamp(22rem, 65svh, 36rem);
     margin-top: 0;
     margin-inline: -2rem;
     padding-top: 0;
     overflow: clip;
-    perspective-origin: 50% 100%;
+    perspective-origin: 50% 50%;
   }
 
   .spray-can {
-    left: var(--can-mobile-x);
-    width: clamp(7rem, var(--can-mobile-width), 10rem);
+    top: 0;
+    bottom: auto;
+    left: 50%;
+    margin-bottom: 0;
+    width: clamp(11rem, min(78vw, 36svh), 19rem);
+    height: auto;
     filter: brightness(1) saturate(1);
-    transform: translate3d(0, 0, 0) rotate(0deg);
-    transform-origin: 50% 100%;
+    transform-origin: 50% 50%;
+    transition:
+      opacity 360ms ease,
+      transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
   }
 
-  .spray-can[data-active="true"],
-  .spray-can[data-dimmed="true"] {
+  .spray-can[data-mobile-state="active"],
+  .spray-can[data-mobile-state="active"][data-active="true"],
+  .spray-can[data-mobile-state="active"][data-dimmed="true"] {
+    z-index: 10 !important;
     opacity: 1;
     filter: brightness(1) saturate(1);
-    transform: translate3d(0, 0, 0) rotate(0deg);
+    transform: translate3d(-50%, 0, 0) rotate(0deg);
+    pointer-events: auto;
   }
 
-  .spray-can:nth-of-type(1) {
+  .spray-can[data-mobile-state="before"],
+  .spray-can[data-mobile-state="before"][data-active="true"],
+  .spray-can[data-mobile-state="before"][data-dimmed="true"],
+  .spray-can[data-mobile-state="after"],
+  .spray-can[data-mobile-state="after"][data-active="true"],
+  .spray-can[data-mobile-state="after"][data-dimmed="true"] {
     z-index: 1 !important;
+    opacity: 0;
+    filter: brightness(1) saturate(1);
+    transform: translate3d(-50%, 0, 0) rotate(0deg);
+    pointer-events: none;
   }
 
-  .spray-can:nth-of-type(2) {
-    z-index: 2 !important;
-  }
-
-  .spray-can:nth-of-type(3) {
-    z-index: 3 !important;
-  }
-
-  .spray-can:nth-of-type(4) {
-    z-index: 4 !important;
-  }
-
-  .spray-can:nth-of-type(5) {
-    z-index: 5 !important;
-  }
-
-  .spray-can:nth-of-type(6) {
-    z-index: 6 !important;
+  .spray-can::after {
+    display: none;
   }
 }
 
 html {
   scroll-behavior: smooth;
+  overflow-x: clip;
 }
 
 body {

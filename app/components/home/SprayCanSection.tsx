@@ -104,6 +104,30 @@ const canLayouts: Record<string, SprayCanLayout> = {
 export function SprayCanSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const [activeSlug, setActiveSlug] = useState<string | null>(null);
+  const [mobileIndex, setMobileIndex] = useState(0);
+
+  const total = services.length;
+  const handlePrev = () => setMobileIndex((i) => (i - 1 + total) % total);
+  const handleNext = () => setMobileIndex((i) => (i + 1) % total);
+
+  const swipeRef = useRef<{ startX: number; active: boolean }>({
+    startX: 0,
+    active: false,
+  });
+
+  const handleSwipeStart = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (e.pointerType === "mouse") return;
+    swipeRef.current = { startX: e.clientX, active: true };
+  };
+
+  const handleSwipeEnd = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!swipeRef.current.active) return;
+    const dx = e.clientX - swipeRef.current.startX;
+    swipeRef.current.active = false;
+    const threshold = 40;
+    if (dx > threshold) handlePrev();
+    else if (dx < -threshold) handleNext();
+  };
 
   useEffect(() => {
     let cancelled = false;
@@ -154,7 +178,7 @@ export function SprayCanSection() {
     <section
       id="servicios"
       ref={sectionRef}
-      className="bg-rubric-black px-16 pt-32 pb-0 max-[900px]:px-8 max-[900px]:pt-20 max-[768px]:flex max-[768px]:min-h-svh max-[768px]:flex-col">
+      className="overflow-clip  bg-rubric-black px-16 pt-32 pb-0 max-[900px]:px-8 max-[900px]:pt-20 max-[768px]:pb-12">
       <div
         data-services-header
         className="relative z-0 mb-8 flex items-end justify-between gap-8 max-[900px]:mb-4 max-[900px]:flex-col max-[900px]:items-start max-[768px]:mb-16">
@@ -164,20 +188,52 @@ export function SprayCanSection() {
       </div>
 
       <div
-        className="spray-stage"
+        className="spray-stage touch-pan-y"
         data-can-stage
-        onPointerLeave={() => setActiveSlug(null)}>
-        {services.map((service) => (
-          <SprayCanCard
-            key={service.slug}
-            service={service}
-            layout={canLayouts[service.slug]}
-            isActive={activeSlug === service.slug}
-            isDimmed={activeSlug !== null && activeSlug !== service.slug}
-            onActivate={setActiveSlug}
-            onDeactivate={() => setActiveSlug(null)}
-          />
-        ))}
+        onPointerLeave={() => setActiveSlug(null)}
+        onPointerDown={handleSwipeStart}
+        onPointerUp={handleSwipeEnd}
+        onPointerCancel={() => {
+          swipeRef.current.active = false;
+        }}>
+        {services.map((service, idx) => {
+          const diff = (idx - mobileIndex + total) % total;
+          const mobileState: "active" | "before" | "after" =
+            diff === 0 ? "active" : diff <= total / 2 ? "after" : "before";
+          return (
+            <SprayCanCard
+              key={service.slug}
+              service={service}
+              layout={canLayouts[service.slug]}
+              isActive={activeSlug === service.slug}
+              isDimmed={activeSlug !== null && activeSlug !== service.slug}
+              mobileState={mobileState}
+              onActivate={setActiveSlug}
+              onDeactivate={() => setActiveSlug(null)}
+            />
+          );
+        })}
+      </div>
+
+      <div className="hidden items-center justify-center gap-6 pt-6 pb-10 max-[768px]:flex">
+        <button
+          type="button"
+          onClick={handlePrev}
+          aria-label="Servicio anterior"
+          className="flex h-12 w-12 items-center justify-center border border-[rgba(245,240,232,0.18)] bg-rubric-black/40 font-sans text-xl leading-none text-rubric-red transition-colors hover:border-rubric-red hover:bg-rubric-red hover:text-rubric-white">
+          ←
+        </button>
+        <span className="min-w-14 text-center font-display text-[0.85rem] tracking-[0.25em] text-rubric-white/70 uppercase">
+          {String(mobileIndex + 1).padStart(2, "0")} /{" "}
+          {String(total).padStart(2, "0")}
+        </span>
+        <button
+          type="button"
+          onClick={handleNext}
+          aria-label="Servicio siguiente"
+          className="flex h-12 w-12 items-center justify-center border border-[rgba(245,240,232,0.18)] bg-rubric-black/40 font-sans text-xl leading-none text-rubric-red transition-colors hover:border-rubric-red hover:bg-rubric-red hover:text-rubric-white">
+          →
+        </button>
       </div>
     </section>
   );

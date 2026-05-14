@@ -38,6 +38,7 @@ type Props = {
   layout: SprayCanLayout;
   isActive: boolean;
   isDimmed: boolean;
+  mobileState: "active" | "before" | "after";
   onActivate: (slug: string) => void;
   onDeactivate: () => void;
 };
@@ -47,6 +48,7 @@ export function SprayCanCard({
   layout,
   isActive,
   isDimmed,
+  mobileState,
   onActivate,
   onDeactivate,
 }: Props) {
@@ -74,6 +76,7 @@ export function SprayCanCard({
       className="spray-can group mt-10"
       data-active={isActive ? "true" : undefined}
       data-dimmed={isDimmed ? "true" : undefined}
+      data-mobile-state={mobileState}
       data-can-card
       style={style}
       aria-label={`Ver servicio ${service.name}`}
