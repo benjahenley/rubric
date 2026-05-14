@@ -178,7 +178,7 @@ export function SprayCanSection() {
     <section
       id="servicios"
       ref={sectionRef}
-      className="overflow-clip  bg-rubric-black px-16 pt-32 pb-0 max-[900px]:px-8 max-[900px]:pt-20 max-[768px]:pb-12">
+      className="overflow-clip md:overflow-visible  bg-rubric-black px-16 pt-32 pb-0 max-[900px]:px-8 max-[900px]:pt-20 max-[768px]:pb-12">
       <div
         data-services-header
         className="relative z-0 mb-8 flex items-end justify-between gap-8 max-[900px]:mb-4 max-[900px]:flex-col max-[900px]:items-start max-[768px]:mb-16">
